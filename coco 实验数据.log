@@ -1,0 +1,981 @@
+2025-07-11 12:24:45,549 - dist_clip_coco.py - INFO: 
+args: Namespace(config='E:/ryl/WeCLIP+3-coco/configs/coco_attn_reg.yaml', seg_detach=False, work_dir=None, radius=8, crop_size=320)
+2025-07-11 12:24:45,551 - dist_clip_coco.py - INFO: 
+configs: {'dataset': {'root_dir': 'D:/ToCo-main/datasets/coco/MSCOCO', 'name_list_dir': 'E:\\ryl\\WeCLIP+3-coco\\datasets\\coco', 'num_classes': 81, 'crop_size': 320, 'resize_range': [512, 2048], 'rescale_range': [0.5, 2.0], 'ignore_index': 255}, 'work_dir': {'dir': 'work_dir_coco', 'ckpt_dir': 'work_dir_coco\\checkpoints\\2025-07-11-12-24', 'pred_dir': 'work_dir_coco\\predictions', 'segs_dir': 'segs', 'tb_logger_dir': 'work_dir_coco\\tb_logger\\2025-07-11-12-24'}, 'train': {'split': 'train', 'samples_per_gpu': 8, 'max_iters': 80000, 'cam_iters': 5000, 'eval_iters': 10000, 'log_iters': 200}, 'val': {'split': 'val'}, 'optimizer': {'type': 'AdamW', 'learning_rate': 2e-05, 'betas': [0.9, 0.999], 'weight_decay': 0.01}, 'scheduler': {'warmup_iter': 50, 'warmup_ratio': 1e-06, 'power': 1.0}, 'clip_init': {'clip_pretrain_path': 'E:\\ryl\\WeCLIP+3-coco\\pretrained\\ViT-B-16.pt', 'embedding_dim': 256, 'in_channels': [768, 768, 768, 768], 'clip_flag': 16, 'resize_long': 512}, 'dino_init': {'dino_model': 'dinov2_vitl14_reg', 'dino_fts_fuse_dim': 1024, 'decoder_layer': 5}}
+2025-07-11 12:25:03,159 - vision_transformer.py - INFO: using MLP layer as FFN
+2025-07-11 12:25:06,577 - dist_clip_coco.py - INFO: 
+Network config: 
+WeCLIP_Plus(
+  (encoder): CLIP(
+    (visual): VisionTransformer(
+      (conv1): Conv2d(3, 768, kernel_size=(16, 16), stride=(16, 16), bias=False)
+      (ln_pre): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+      (transformer): Transformer(
+        (resblocks): Sequential(
+          (0): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (1): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (2): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (3): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (4): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (5): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (6): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (7): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (8): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (9): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (10): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+          (11): ResidualAttentionBlock(
+            (attn): MultiheadAttention(
+              (out_proj): NonDynamicallyQuantizableLinear(in_features=768, out_features=768, bias=True)
+            )
+            (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+            (mlp): Sequential(
+              (c_fc): Linear(in_features=768, out_features=3072, bias=True)
+              (gelu): QuickGELU()
+              (c_proj): Linear(in_features=3072, out_features=768, bias=True)
+            )
+            (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+      (ln_post): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    )
+    (transformer): Transformer(
+      (resblocks): Sequential(
+        (0): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (3): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (4): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (5): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (6): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (7): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (8): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (9): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (10): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+        (11): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=512, out_features=512, bias=True)
+          )
+          (ln_1): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=512, out_features=2048, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=2048, out_features=512, bias=True)
+          )
+          (ln_2): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (token_embedding): Embedding(49408, 512)
+    (ln_final): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+  )
+  (dino_encoder): DinoVisionTransformer(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(3, 1024, kernel_size=(14, 14), stride=(14, 14))
+      (norm): Identity()
+    )
+    (blocks): ModuleList(
+      (0-23): 24 x NestedTensorBlock(
+        (norm1): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+        (attn): MemEffAttention(
+          (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+          (proj): Linear(in_features=1024, out_features=1024, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls1): LayerScale()
+        (drop_path1): Identity()
+        (norm2): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+        (mlp): Mlp(
+          (fc1): Linear(in_features=1024, out_features=4096, bias=True)
+          (act): GELU(approximate='none')
+          (fc2): Linear(in_features=4096, out_features=1024, bias=True)
+          (drop): Dropout(p=0.0, inplace=False)
+        )
+        (ls2): LayerScale()
+        (drop_path2): Identity()
+      )
+    )
+    (norm): LayerNorm((1024,), eps=1e-06, elementwise_affine=True)
+    (head): Identity()
+  )
+  (decoder_fts_fuse): SegFormerHead(
+    (linears_modulelist): ModuleList(
+      (0): MLP(
+        (proj): Linear(in_features=768, out_features=256, bias=True)
+        (proj_2): Linear(in_features=256, out_features=256, bias=True)
+      )
+    )
+    (linear_fuse): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+    (dropout): Dropout2d(p=0.1, inplace=False)
+  )
+  (dino_decoder_fts_fuse): SegFormerHead(
+    (linears_modulelist): ModuleList(
+      (0): MLP(
+        (proj): Linear(in_features=1024, out_features=256, bias=True)
+        (proj_2): Linear(in_features=256, out_features=256, bias=True)
+      )
+    )
+    (linear_fuse): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1))
+    (dropout): Dropout2d(p=0.1, inplace=False)
+  )
+  (decoder): DecoderTransformer(
+    (transformer): Transformer(
+      (resblocks): Sequential(
+        (0): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+          )
+          (ln_1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=256, out_features=1024, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (ln_2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+          )
+          (ln_1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=256, out_features=1024, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (ln_2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+          )
+          (ln_1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=256, out_features=1024, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (ln_2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        )
+        (3): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+          )
+          (ln_1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=256, out_features=1024, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (ln_2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        )
+        (4): ResidualAttentionBlock(
+          (attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=256, out_features=256, bias=True)
+          )
+          (ln_1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+          (mlp): Sequential(
+            (c_fc): Linear(in_features=256, out_features=1024, bias=True)
+            (gelu): QuickGELU()
+            (c_proj): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (ln_2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+    (linear_pred): Conv2d(256, 81, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (par): PAR()
+  (fcm): FCM(
+    (conv1): Conv(
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): SiLU()
+    )
+    (conv12): Conv(
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+      (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): SiLU()
+    )
+    (conv123): Conv(
+      (conv): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): SiLU()
+    )
+    (conv2): Conv(
+      (conv): Conv2d(192, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): SiLU()
+    )
+    (conv3): Conv(
+      (conv): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+      (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): SiLU()
+    )
+    (spatial): Spatial(
+      (conv1): Conv2d(256, 1, kernel_size=(1, 1), stride=(1, 1))
+      (bn): BatchNorm2d(1, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (sigmoid): Sigmoid()
+    )
+    (channel): Channel(
+      (dwconv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+      (dconv): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+      (Apt): AdaptiveAvgPool2d(output_size=1)
+      (sigmoid): Sigmoid()
+    )
+  )
+  (scsa): SCSA(
+    (local_dwc): Conv1d(64, 64, kernel_size=(3,), stride=(1,), padding=(1,), groups=64)
+    (global_dwc_s): Conv1d(64, 64, kernel_size=(5,), stride=(1,), padding=(2,), groups=64)
+    (global_dwc_m): Conv1d(64, 64, kernel_size=(7,), stride=(1,), padding=(3,), groups=64)
+    (global_dwc_l): Conv1d(64, 64, kernel_size=(9,), stride=(1,), padding=(4,), groups=64)
+    (sa_gate): Sigmoid()
+    (norm_h): GroupNorm(4, 256, eps=1e-05, affine=True)
+    (norm_w): GroupNorm(4, 256, eps=1e-05, affine=True)
+    (conv_d): Identity()
+    (norm): GroupNorm(1, 256, eps=1e-05, affine=True)
+    (q): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), groups=256, bias=False)
+    (k): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), groups=256, bias=False)
+    (v): Conv2d(256, 256, kernel_size=(1, 1), stride=(1, 1), groups=256, bias=False)
+    (attn_drop): Dropout(p=0.0, inplace=False)
+    (ca_gate): Sigmoid()
+    (down_func): AvgPool2d(kernel_size=(7, 7), stride=7, padding=0)
+  )
+)
+2025-07-11 12:25:06,839 - dist_clip_coco.py - INFO: 
+Optimizer: 
+PolyWarmupAdamW (
+Parameter Group 0
+    amsgrad: False
+    betas: [0.9, 0.999]
+    capturable: False
+    decoupled_weight_decay: True
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 2e-05
+    maximize: False
+    weight_decay: 0.01
+
+Parameter Group 1
+    amsgrad: False
+    betas: [0.9, 0.999]
+    capturable: False
+    decoupled_weight_decay: True
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0
+    maximize: False
+    weight_decay: 0.0
+
+Parameter Group 2
+    amsgrad: False
+    betas: [0.9, 0.999]
+    capturable: False
+    decoupled_weight_decay: True
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0002
+    maximize: False
+    weight_decay: 0.01
+
+Parameter Group 3
+    amsgrad: False
+    betas: [0.9, 0.999]
+    capturable: False
+    decoupled_weight_decay: True
+    differentiable: False
+    eps: 1e-08
+    foreach: None
+    fused: None
+    lr: 0.0002
+    maximize: False
+    weight_decay: 0.01
+)
+2025-07-11 12:27:38,752 - dist_clip_coco.py - INFO: Iter: 200; Elasped: 0:02:53; ETA: 19:10:27; LR: 1.995e-05;, pseudo_seg_loss: 2.3619, attn_loss: 0.4741, pseudo_seg_mAcc: 0.6845
+2025-07-11 12:30:02,351 - dist_clip_coco.py - INFO: Iter: 400; Elasped: 0:05:17; ETA: 17:31:23; LR: 1.990e-05;, pseudo_seg_loss: 1.6353, attn_loss: 0.4351, pseudo_seg_mAcc: 0.6009
+2025-07-11 12:32:25,592 - dist_clip_coco.py - INFO: Iter: 600; Elasped: 0:07:40; ETA: 16:54:33; LR: 1.985e-05;, pseudo_seg_loss: 1.4304, attn_loss: 0.4278, pseudo_seg_mAcc: 0.6974
+2025-07-11 12:34:48,241 - dist_clip_coco.py - INFO: Iter: 800; Elasped: 0:10:03; ETA: 16:34:57; LR: 1.980e-05;, pseudo_seg_loss: 1.3156, attn_loss: 0.4229, pseudo_seg_mAcc: 0.7550
+2025-07-11 12:37:10,753 - dist_clip_coco.py - INFO: Iter: 1000; Elasped: 0:12:25; ETA: 16:20:55; LR: 1.975e-05;, pseudo_seg_loss: 1.2329, attn_loss: 0.4088, pseudo_seg_mAcc: 0.7463
+2025-07-11 12:39:33,100 - dist_clip_coco.py - INFO: Iter: 1200; Elasped: 0:14:48; ETA: 16:11:52; LR: 1.970e-05;, pseudo_seg_loss: 1.2306, attn_loss: 0.4126, pseudo_seg_mAcc: 0.6664
+2025-07-11 12:41:54,876 - dist_clip_coco.py - INFO: Iter: 1400; Elasped: 0:17:09; ETA: 16:02:51; LR: 1.965e-05;, pseudo_seg_loss: 1.1789, attn_loss: 0.4100, pseudo_seg_mAcc: 0.7695
+2025-07-11 12:44:12,727 - dist_clip_coco.py - INFO: Iter: 1600; Elasped: 0:19:27; ETA: 15:53:03; LR: 1.960e-05;, pseudo_seg_loss: 1.1324, attn_loss: 0.4019, pseudo_seg_mAcc: 0.8452
+2025-07-11 12:46:30,567 - dist_clip_coco.py - INFO: Iter: 1800; Elasped: 0:21:45; ETA: 15:44:55; LR: 1.955e-05;, pseudo_seg_loss: 1.1509, attn_loss: 0.4009, pseudo_seg_mAcc: 0.8233
+2025-07-11 12:48:49,956 - dist_clip_coco.py - INFO: Iter: 2000; Elasped: 0:24:04; ETA: 15:38:36; LR: 1.950e-05;, pseudo_seg_loss: 1.1875, attn_loss: 0.3950, pseudo_seg_mAcc: 0.7343
+2025-07-11 12:51:08,821 - dist_clip_coco.py - INFO: Iter: 2200; Elasped: 0:26:23; ETA: 15:33:00; LR: 1.945e-05;, pseudo_seg_loss: 1.1883, attn_loss: 0.3927, pseudo_seg_mAcc: 0.8134
+2025-07-11 12:53:25,339 - dist_clip_coco.py - INFO: Iter: 2400; Elasped: 0:28:40; ETA: 15:26:53; LR: 1.940e-05;, pseudo_seg_loss: 1.1377, attn_loss: 0.3862, pseudo_seg_mAcc: 0.7816
+2025-07-11 12:55:45,344 - dist_clip_coco.py - INFO: Iter: 2600; Elasped: 0:31:00; ETA: 15:22:50; LR: 1.935e-05;, pseudo_seg_loss: 1.1586, attn_loss: 0.3878, pseudo_seg_mAcc: 0.7436
+2025-07-11 12:58:02,247 - dist_clip_coco.py - INFO: Iter: 2800; Elasped: 0:33:17; ETA: 15:17:40; LR: 1.930e-05;, pseudo_seg_loss: 1.1326, attn_loss: 0.3821, pseudo_seg_mAcc: 0.5793
+2025-07-11 13:00:21,405 - dist_clip_coco.py - INFO: Iter: 3000; Elasped: 0:35:36; ETA: 15:13:44; LR: 1.925e-05;, pseudo_seg_loss: 1.1241, attn_loss: 0.3806, pseudo_seg_mAcc: 0.5480
+2025-07-11 13:02:38,903 - dist_clip_coco.py - INFO: Iter: 3200; Elasped: 0:37:53; ETA: 15:09:12; LR: 1.920e-05;, pseudo_seg_loss: 1.1568, attn_loss: 0.3750, pseudo_seg_mAcc: 0.6351
+2025-07-11 13:04:57,000 - dist_clip_coco.py - INFO: Iter: 3400; Elasped: 0:40:11; ETA: 15:05:18; LR: 1.915e-05;, pseudo_seg_loss: 1.1375, attn_loss: 0.3661, pseudo_seg_mAcc: 0.7049
+2025-07-11 13:07:16,247 - dist_clip_coco.py - INFO: Iter: 3600; Elasped: 0:42:31; ETA: 15:02:17; LR: 1.910e-05;, pseudo_seg_loss: 1.1129, attn_loss: 0.3734, pseudo_seg_mAcc: 0.7542
+2025-07-11 13:09:35,081 - dist_clip_coco.py - INFO: Iter: 3800; Elasped: 0:44:50; ETA: 14:59:01; LR: 1.905e-05;, pseudo_seg_loss: 1.1331, attn_loss: 0.3717, pseudo_seg_mAcc: 0.6150
+2025-07-11 13:11:52,565 - dist_clip_coco.py - INFO: Iter: 4000; Elasped: 0:47:07; ETA: 14:55:13; LR: 1.900e-05;, pseudo_seg_loss: 1.1097, attn_loss: 0.3627, pseudo_seg_mAcc: 0.8755
+2025-07-11 13:14:09,519 - dist_clip_coco.py - INFO: Iter: 4200; Elasped: 0:49:24; ETA: 14:51:33; LR: 1.895e-05;, pseudo_seg_loss: 1.1427, attn_loss: 0.3636, pseudo_seg_mAcc: 0.8115
+2025-07-11 13:16:28,619 - dist_clip_coco.py - INFO: Iter: 4400; Elasped: 0:51:43; ETA: 14:48:35; LR: 1.890e-05;, pseudo_seg_loss: 1.0920, attn_loss: 0.3635, pseudo_seg_mAcc: 0.6558
+2025-07-11 13:18:47,408 - dist_clip_coco.py - INFO: Iter: 4600; Elasped: 0:54:02; ETA: 14:45:40; LR: 1.885e-05;, pseudo_seg_loss: 1.0860, attn_loss: 0.3616, pseudo_seg_mAcc: 0.7073
+2025-07-11 13:21:03,875 - dist_clip_coco.py - INFO: Iter: 4800; Elasped: 0:56:18; ETA: 14:42:02; LR: 1.880e-05;, pseudo_seg_loss: 1.0552, attn_loss: 0.3564, pseudo_seg_mAcc: 0.8471
+2025-07-11 13:23:23,638 - dist_clip_coco.py - INFO: Iter: 5000; Elasped: 0:58:38; ETA: 14:39:30; LR: 1.875e-05;, pseudo_seg_loss: 1.0718, attn_loss: 0.3613, pseudo_seg_mAcc: 0.6479
+2025-07-11 13:25:40,591 - dist_clip_coco.py - INFO: Iter: 5200; Elasped: 1:00:55; ETA: 14:36:15; LR: 1.870e-05;, pseudo_seg_loss: 1.0614, attn_loss: 0.3593, pseudo_seg_mAcc: 0.7206
+2025-07-11 13:27:59,195 - dist_clip_coco.py - INFO: Iter: 5400; Elasped: 1:03:14; ETA: 14:33:33; LR: 1.865e-05;, pseudo_seg_loss: 1.1176, attn_loss: 0.3585, pseudo_seg_mAcc: 0.7880
+2025-07-11 13:30:17,035 - dist_clip_coco.py - INFO: Iter: 5600; Elasped: 1:05:31; ETA: 14:30:26; LR: 1.860e-05;, pseudo_seg_loss: 1.0834, attn_loss: 0.3488, pseudo_seg_mAcc: 0.6767
+2025-07-11 13:32:34,466 - dist_clip_coco.py - INFO: Iter: 5800; Elasped: 1:07:49; ETA: 14:27:35; LR: 1.855e-05;, pseudo_seg_loss: 1.1010, attn_loss: 0.3490, pseudo_seg_mAcc: 0.8458
+2025-07-11 13:34:51,967 - dist_clip_coco.py - INFO: Iter: 6000; Elasped: 1:10:06; ETA: 14:24:34; LR: 1.850e-05;, pseudo_seg_loss: 1.1383, attn_loss: 0.3463, pseudo_seg_mAcc: 0.7659
+2025-07-11 13:37:08,460 - dist_clip_coco.py - INFO: Iter: 6200; Elasped: 1:12:23; ETA: 14:21:35; LR: 1.845e-05;, pseudo_seg_loss: 1.0672, attn_loss: 0.3430, pseudo_seg_mAcc: 0.8195
+2025-07-11 13:39:25,473 - dist_clip_coco.py - INFO: Iter: 6400; Elasped: 1:14:40; ETA: 14:18:40; LR: 1.840e-05;, pseudo_seg_loss: 1.0728, attn_loss: 0.3450, pseudo_seg_mAcc: 0.6038
+2025-07-11 13:41:44,740 - dist_clip_coco.py - INFO: Iter: 6600; Elasped: 1:16:59; ETA: 14:16:08; LR: 1.835e-05;, pseudo_seg_loss: 1.0931, attn_loss: 0.3526, pseudo_seg_mAcc: 0.6325
+2025-07-11 13:44:03,551 - dist_clip_coco.py - INFO: Iter: 6800; Elasped: 1:19:18; ETA: 14:13:38; LR: 1.830e-05;, pseudo_seg_loss: 1.1057, attn_loss: 0.3503, pseudo_seg_mAcc: 0.6592
+2025-07-11 13:46:22,758 - dist_clip_coco.py - INFO: Iter: 7000; Elasped: 1:21:37; ETA: 14:11:08; LR: 1.825e-05;, pseudo_seg_loss: 1.0839, attn_loss: 0.3438, pseudo_seg_mAcc: 0.7941
+2025-07-11 13:48:38,543 - dist_clip_coco.py - INFO: Iter: 7200; Elasped: 1:23:53; ETA: 14:08:09; LR: 1.820e-05;, pseudo_seg_loss: 1.0325, attn_loss: 0.3348, pseudo_seg_mAcc: 0.5969
+2025-07-11 13:50:55,431 - dist_clip_coco.py - INFO: Iter: 7400; Elasped: 1:26:10; ETA: 14:05:21; LR: 1.815e-05;, pseudo_seg_loss: 1.0617, attn_loss: 0.3387, pseudo_seg_mAcc: 0.7222
+2025-07-11 13:53:14,968 - dist_clip_coco.py - INFO: Iter: 7600; Elasped: 1:28:29; ETA: 14:02:55; LR: 1.810e-05;, pseudo_seg_loss: 1.0719, attn_loss: 0.3422, pseudo_seg_mAcc: 0.7472
+2025-07-11 13:55:33,581 - dist_clip_coco.py - INFO: Iter: 7800; Elasped: 1:30:48; ETA: 14:00:28; LR: 1.805e-05;, pseudo_seg_loss: 1.0691, attn_loss: 0.3392, pseudo_seg_mAcc: 0.6639
+2025-07-11 13:57:50,033 - dist_clip_coco.py - INFO: Iter: 8000; Elasped: 1:33:04; ETA: 13:57:36; LR: 1.800e-05;, pseudo_seg_loss: 1.0213, attn_loss: 0.3417, pseudo_seg_mAcc: 0.6261
+2025-07-11 14:00:06,335 - dist_clip_coco.py - INFO: Iter: 8200; Elasped: 1:35:21; ETA: 13:54:53; LR: 1.795e-05;, pseudo_seg_loss: 1.0656, attn_loss: 0.3410, pseudo_seg_mAcc: 0.7834
+2025-07-11 14:02:24,725 - dist_clip_coco.py - INFO: Iter: 8400; Elasped: 1:37:39; ETA: 13:52:21; LR: 1.790e-05;, pseudo_seg_loss: 1.0514, attn_loss: 0.3362, pseudo_seg_mAcc: 0.7057
+2025-07-11 14:04:42,715 - dist_clip_coco.py - INFO: Iter: 8600; Elasped: 1:39:57; ETA: 13:49:49; LR: 1.785e-05;, pseudo_seg_loss: 1.0501, attn_loss: 0.3296, pseudo_seg_mAcc: 0.6574
+2025-07-11 14:07:02,618 - dist_clip_coco.py - INFO: Iter: 8800; Elasped: 1:42:17; ETA: 13:47:33; LR: 1.780e-05;, pseudo_seg_loss: 1.0470, attn_loss: 0.3378, pseudo_seg_mAcc: 0.6194
+2025-07-11 14:09:21,050 - dist_clip_coco.py - INFO: Iter: 9000; Elasped: 1:44:35; ETA: 13:45:02; LR: 1.775e-05;, pseudo_seg_loss: 1.0650, attn_loss: 0.3354, pseudo_seg_mAcc: 0.8573
+2025-07-11 14:11:39,812 - dist_clip_coco.py - INFO: Iter: 9200; Elasped: 1:46:54; ETA: 13:42:39; LR: 1.770e-05;, pseudo_seg_loss: 1.0439, attn_loss: 0.3303, pseudo_seg_mAcc: 0.6396
+2025-07-11 14:13:58,361 - dist_clip_coco.py - INFO: Iter: 9400; Elasped: 1:49:13; ETA: 13:40:17; LR: 1.765e-05;, pseudo_seg_loss: 1.0668, attn_loss: 0.3362, pseudo_seg_mAcc: 0.5662
+2025-07-11 14:16:15,026 - dist_clip_coco.py - INFO: Iter: 9600; Elasped: 1:51:29; ETA: 13:37:32; LR: 1.760e-05;, pseudo_seg_loss: 1.0717, attn_loss: 0.3340, pseudo_seg_mAcc: 0.8893
+2025-07-11 14:18:33,159 - dist_clip_coco.py - INFO: Iter: 9800; Elasped: 1:53:48; ETA: 13:35:10; LR: 1.755e-05;, pseudo_seg_loss: 1.0412, attn_loss: 0.3304, pseudo_seg_mAcc: 0.8672
+2025-07-11 14:20:52,761 - dist_clip_coco.py - INFO: Iter: 10000; Elasped: 1:56:07; ETA: 13:32:49; LR: 1.750e-05;, pseudo_seg_loss: 1.0375, attn_loss: 0.3321, pseudo_seg_mAcc: 0.7753
+2025-07-11 14:20:52,761 - dist_clip_coco.py - INFO: Validating...
+2025-07-11 16:30:46,641 - dist_clip_coco.py - INFO: cams score:
+2025-07-11 16:30:46,641 - dist_clip_coco.py - INFO: {'pAcc': 0.8198651376177973, 'mAcc': 0.6973926958679162, 'miou': 0.4526408212345631, 'iou': {0: 0.8083981794407148, 1: 0.4684964788150311, 2: 0.4585575818385695, 3: 0.4569376396205421, 4: 0.6812483367423445, 5: 0.7138361771076731, 6: 0.757978611637639, 7: 0.7394124718154507, 8: 0.5313012026609543, 9: 0.5049410592957572, 10: 0.10838915943736707, 11: 0.5033692107313713, 12: 0.5210187669287538, 13: 0.5758931079243679, 14: 0.33957832499560386, 15: 0.4920680560129018, 16: 0.8039925046654249, 17: 0.7499147101470804, 18: 0.7237472388180136, 19: 0.7236314576293692, 20: 0.7628295986940802, 21: 0.8265262315571732, 22: 0.8252448307168629, 23: 0.7142210189619225, 24: 0.6959337292920779, 25: 0.22193463290798907, 26: 0.6091033185024716, 27: 0.1763982632217336, 28: 0.18034904997450912, 29: 0.5480204701817087, 30: 0.6551691932208169, 31: 0.1694427368469073, 32: 0.18876902954037145, 33: 0.08450534043077278, 34: 0.5061884889876361, 35: 0.12554266411125983, 36: 0.18368106637055648, 37: 0.2182403996095186, 38: 0.47185506411927625, 39: 0.21451843154289846, 40: 0.22142193140985467, 41: 0.3199865293748284, 42: 0.2629865410907706, 43: 0.08749848794635086, 44: 0.08028400891102391, 45: 0.06490268861256276, 46: 0.25578963494807877, 47: 0.6439821806341266, 48: 0.5161004414312271, 49: 0.5941407235871957, 50: 0.5728437146666217, 51: 0.4543601850777001, 52: 0.30156374835663957, 53: 0.6143832254409503, 54: 0.7027316963936242, 55: 0.704619995949855, 56: 0.5857481480363768, 57: 0.29564996827566975, 58: 0.5330173161684465, 59: 0.33384977781316827, 60: 0.6018410247199556, 61: 0.40929795661096613, 62: 0.6852803119611328, 63: 0.4378584140821784, 64: 0.5080011722492103, 65: 0.18063973691899318, 66: 0.35256083765670165, 67: 0.5476260081885636, 68: 0.3261475719032824, 69: 0.36480408511710166, 70: 0.35041046659992886, 71: 0.40056400911617457, 72: 0.29875147765786386, 73: 0.46532176360144, 74: 0.33334049945727046, 75: 0.30543841003992783, 76: 0.3424346004899507, 77: 0.4148948737344953, 78: 0.7069517380736172, 79: 0.24153371855218683, 80: 0.20316306408812398}}
+2025-07-11 16:30:46,641 - dist_clip_coco.py - INFO: segs score:
+2025-07-11 16:30:46,641 - dist_clip_coco.py - INFO: {'pAcc': 0.8424537195343137, 'mAcc': 0.5193396089268572, 'miou': 0.4263544061186018, 'iou': {0: 0.8278979559249142, 1: 0.6113687122671942, 2: 0.5231564046522726, 3: 0.4832000822400468, 4: 0.6811538911199082, 5: 0.7403622507820907, 6: 0.7234314337272633, 7: 0.7682534886180652, 8: 0.390001427389091, 9: 0.5225235705757043, 10: 0.45857109650553124, 11: 0.7451014710139413, 12: 0.5940986484261074, 13: 0.31925237725684796, 14: 0.42094089947259783, 15: 0.6813576007237149, 16: 0.6286963744858304, 17: 0.751317682466941, 18: 0.7267270803326984, 19: 0.7195081176811868, 20: 0.7049291914399618, 21: 0.7984337787263422, 22: 0.7588446692226605, 23: 0.695391815102468, 24: 0.7211135737012392, 25: 0.1690637034802169, 26: 0.673257759997748, 27: 0.112695858962482, 28: 0.3022232288219982, 29: 0.3016246500379481, 30: 0.6217305694698263, 31: 0.19020508726820287, 32: 0.16069417190394136, 33: 0.20908738637744195, 34: 0.48614734437414814, 35: 0.0013938682019329323, 36: 0.1502529627022098, 37: 0.30786484935528563, 38: 0.5614422235111256, 39: 0.35168233439570895, 40: 0.3072060126271924, 41: 0.296225713137936, 42: 0.2864879514017558, 43: 0.038251380781877384, 44: 0.23386711099470542, 45: 0.05963085991637326, 46: 0.211172494387542, 47: 0.38018047180572895, 48: 0.23625505943179645, 49: 0.3088166882581114, 50: 0.525085386571745, 51: 0.5206844243323364, 52: 0.44504508296832584, 53: 0.36558530154292945, 54: 0.46493510563260293, 55: 0.28241193764013106, 56: 0.3368479762853949, 57: 0.30454232904897094, 58: 0.5114341261113922, 59: 0.23490393406529952, 60: 0.5144953867243308, 61: 0.27378223136120533, 62: 0.6814793073232405, 63: 0.4004322892475139, 64: 0.3356718056396512, 65: 0.28375050344063474, 66: 0.5089682906272219, 67: 0.3652997803815831, 68: 0.5414609109220815, 69: 0.3849427733137272, 70: 0.2859537835695458, 71: 0.0, 72: 0.4271185394760571, 73: 0.5020397161678593, 74: 0.33920653575710474, 75: 0.4801915999695099, 76: 0.2715799963225732, 77: 0.1583719429919614, 78: 0.5784480514831412, 79: 0.0, 80: 0.25694451123081796}}
+2025-07-11 16:33:05,653 - dist_clip_coco.py - INFO: Iter: 10200; Elasped: 4:08:20; ETA: 1 day, 4:19:22; LR: 1.745e-05;, pseudo_seg_loss: 1.0777, attn_loss: 0.3311, pseudo_seg_mAcc: 0.7347
+2025-07-11 16:35:31,314 - dist_clip_coco.py - INFO: Iter: 10400; Elasped: 4:10:46; ETA: 1 day, 3:58:12; LR: 1.740e-05;, pseudo_seg_loss: 1.0182, attn_loss: 0.3285, pseudo_seg_mAcc: 0.7632
+2025-07-11 16:37:54,145 - dist_clip_coco.py - INFO: Iter: 10600; Elasped: 4:13:09; ETA: 1 day, 3:37:24; LR: 1.735e-05;, pseudo_seg_loss: 1.0638, attn_loss: 0.3353, pseudo_seg_mAcc: 0.8117
+2025-07-11 16:40:14,089 - dist_clip_coco.py - INFO: Iter: 10800; Elasped: 4:15:29; ETA: 1 day, 3:16:59; LR: 1.730e-05;, pseudo_seg_loss: 1.0342, attn_loss: 0.3307, pseudo_seg_mAcc: 0.7077
+2025-07-11 16:42:33,882 - dist_clip_coco.py - INFO: Iter: 11000; Elasped: 4:17:48; ETA: 1 day, 2:57:06; LR: 1.725e-05;, pseudo_seg_loss: 1.0205, attn_loss: 0.3343, pseudo_seg_mAcc: 0.7648
+2025-07-11 16:44:50,984 - dist_clip_coco.py - INFO: Iter: 11200; Elasped: 4:20:05; ETA: 1 day, 2:37:39; LR: 1.720e-05;, pseudo_seg_loss: 1.0603, attn_loss: 0.3258, pseudo_seg_mAcc: 0.7881
+2025-07-11 16:47:08,690 - dist_clip_coco.py - INFO: Iter: 11400; Elasped: 4:22:23; ETA: 1 day, 2:18:54; LR: 1.715e-05;, pseudo_seg_loss: 1.0137, attn_loss: 0.3241, pseudo_seg_mAcc: 0.5815
+2025-07-11 16:49:28,259 - dist_clip_coco.py - INFO: Iter: 11600; Elasped: 4:24:43; ETA: 1 day, 2:00:54; LR: 1.710e-05;, pseudo_seg_loss: 0.9710, attn_loss: 0.3230, pseudo_seg_mAcc: 0.6883
+2025-07-11 16:51:46,728 - dist_clip_coco.py - INFO: Iter: 11800; Elasped: 4:27:01; ETA: 1 day, 1:43:15; LR: 1.705e-05;, pseudo_seg_loss: 1.0052, attn_loss: 0.3248, pseudo_seg_mAcc: 0.9034
+2025-07-11 16:54:04,964 - dist_clip_coco.py - INFO: Iter: 12000; Elasped: 4:29:19; ETA: 1 day, 1:26:07; LR: 1.700e-05;, pseudo_seg_loss: 1.0207, attn_loss: 0.3165, pseudo_seg_mAcc: 0.7397
+2025-07-11 16:56:23,404 - dist_clip_coco.py - INFO: Iter: 12200; Elasped: 4:31:38; ETA: 1 day, 1:09:34; LR: 1.695e-05;, pseudo_seg_loss: 0.9964, attn_loss: 0.3191, pseudo_seg_mAcc: 0.6573
+2025-07-11 16:58:41,244 - dist_clip_coco.py - INFO: Iter: 12400; Elasped: 4:33:56; ETA: 1 day, 0:53:22; LR: 1.690e-05;, pseudo_seg_loss: 1.0408, attn_loss: 0.3227, pseudo_seg_mAcc: 0.6374
+2025-07-11 17:00:59,719 - dist_clip_coco.py - INFO: Iter: 12600; Elasped: 4:36:14; ETA: 1 day, 0:37:37; LR: 1.685e-05;, pseudo_seg_loss: 1.0326, attn_loss: 0.3216, pseudo_seg_mAcc: 0.8689
+2025-07-11 17:03:19,571 - dist_clip_coco.py - INFO: Iter: 12800; Elasped: 4:38:34; ETA: 1 day, 0:22:28; LR: 1.680e-05;, pseudo_seg_loss: 1.0027, attn_loss: 0.3285, pseudo_seg_mAcc: 0.7991
+2025-07-11 17:05:38,406 - dist_clip_coco.py - INFO: Iter: 13000; Elasped: 4:40:53; ETA: 1 day, 0:07:37; LR: 1.675e-05;, pseudo_seg_loss: 1.0090, attn_loss: 0.3241, pseudo_seg_mAcc: 0.7654
+2025-07-11 17:07:59,344 - dist_clip_coco.py - INFO: Iter: 13200; Elasped: 4:43:14; ETA: 23:53:19; LR: 1.670e-05;, pseudo_seg_loss: 1.0337, attn_loss: 0.3198, pseudo_seg_mAcc: 0.6626
+2025-07-11 17:10:17,338 - dist_clip_coco.py - INFO: Iter: 13400; Elasped: 4:45:32; ETA: 23:39:08; LR: 1.665e-05;, pseudo_seg_loss: 1.0001, attn_loss: 0.3193, pseudo_seg_mAcc: 0.8450
+2025-07-11 17:12:36,752 - dist_clip_coco.py - INFO: Iter: 13600; Elasped: 4:47:51; ETA: 23:25:23; LR: 1.660e-05;, pseudo_seg_loss: 0.9981, attn_loss: 0.3201, pseudo_seg_mAcc: 0.7113
+2025-07-11 17:14:56,681 - dist_clip_coco.py - INFO: Iter: 13800; Elasped: 4:50:11; ETA: 23:12:02; LR: 1.655e-05;, pseudo_seg_loss: 1.0390, attn_loss: 0.3162, pseudo_seg_mAcc: 0.7933
+2025-07-11 17:17:17,047 - dist_clip_coco.py - INFO: Iter: 14000; Elasped: 4:52:31; ETA: 22:59:00; LR: 1.650e-05;, pseudo_seg_loss: 1.0155, attn_loss: 0.3180, pseudo_seg_mAcc: 0.8068
+2025-07-11 17:19:37,523 - dist_clip_coco.py - INFO: Iter: 14200; Elasped: 4:54:52; ETA: 22:46:21; LR: 1.645e-05;, pseudo_seg_loss: 1.0182, attn_loss: 0.3201, pseudo_seg_mAcc: 0.8640
+2025-07-11 17:21:59,571 - dist_clip_coco.py - INFO: Iter: 14400; Elasped: 4:57:14; ETA: 22:34:03; LR: 1.640e-05;, pseudo_seg_loss: 1.0510, attn_loss: 0.3179, pseudo_seg_mAcc: 0.8202
+2025-07-11 17:24:21,020 - dist_clip_coco.py - INFO: Iter: 14600; Elasped: 4:59:35; ETA: 22:21:58; LR: 1.635e-05;, pseudo_seg_loss: 1.0292, attn_loss: 0.3180, pseudo_seg_mAcc: 0.7762
+2025-07-11 17:26:42,323 - dist_clip_coco.py - INFO: Iter: 14800; Elasped: 5:01:57; ETA: 22:10:12; LR: 1.630e-05;, pseudo_seg_loss: 1.0077, attn_loss: 0.3263, pseudo_seg_mAcc: 0.6687
+2025-07-11 17:29:02,895 - dist_clip_coco.py - INFO: Iter: 15000; Elasped: 5:04:17; ETA: 21:58:33; LR: 1.625e-05;, pseudo_seg_loss: 0.9950, attn_loss: 0.3170, pseudo_seg_mAcc: 0.8120
+2025-07-11 17:31:22,733 - dist_clip_coco.py - INFO: Iter: 15200; Elasped: 5:06:37; ETA: 21:47:09; LR: 1.620e-05;, pseudo_seg_loss: 1.0145, attn_loss: 0.3184, pseudo_seg_mAcc: 0.5943
+2025-07-11 17:33:41,869 - dist_clip_coco.py - INFO: Iter: 15400; Elasped: 5:08:56; ETA: 21:35:54; LR: 1.615e-05;, pseudo_seg_loss: 0.9874, attn_loss: 0.3190, pseudo_seg_mAcc: 0.5967
+2025-07-11 17:36:01,827 - dist_clip_coco.py - INFO: Iter: 15600; Elasped: 5:11:16; ETA: 21:24:58; LR: 1.610e-05;, pseudo_seg_loss: 1.0136, attn_loss: 0.3168, pseudo_seg_mAcc: 0.8944
+2025-07-11 17:38:21,530 - dist_clip_coco.py - INFO: Iter: 15800; Elasped: 5:13:36; ETA: 21:14:14; LR: 1.605e-05;, pseudo_seg_loss: 1.0237, attn_loss: 0.3112, pseudo_seg_mAcc: 0.8640
+2025-07-11 17:40:39,790 - dist_clip_coco.py - INFO: Iter: 16000; Elasped: 5:15:54; ETA: 21:03:36; LR: 1.600e-05;, pseudo_seg_loss: 1.0203, attn_loss: 0.3119, pseudo_seg_mAcc: 0.8431
+2025-07-11 17:43:01,571 - dist_clip_coco.py - INFO: Iter: 16200; Elasped: 5:18:16; ETA: 20:53:25; LR: 1.595e-05;, pseudo_seg_loss: 1.0163, attn_loss: 0.3129, pseudo_seg_mAcc: 0.6942
+2025-07-11 17:45:21,916 - dist_clip_coco.py - INFO: Iter: 16400; Elasped: 5:20:36; ETA: 20:43:18; LR: 1.590e-05;, pseudo_seg_loss: 1.0367, attn_loss: 0.3170, pseudo_seg_mAcc: 0.7140
+2025-07-11 17:47:41,156 - dist_clip_coco.py - INFO: Iter: 16600; Elasped: 5:22:56; ETA: 20:33:22; LR: 1.585e-05;, pseudo_seg_loss: 1.0178, attn_loss: 0.3159, pseudo_seg_mAcc: 0.7332
+2025-07-11 17:50:01,223 - dist_clip_coco.py - INFO: Iter: 16800; Elasped: 5:25:16; ETA: 20:23:37; LR: 1.580e-05;, pseudo_seg_loss: 0.9645, attn_loss: 0.3101, pseudo_seg_mAcc: 0.7362
+2025-07-11 17:52:21,843 - dist_clip_coco.py - INFO: Iter: 17000; Elasped: 5:27:36; ETA: 20:14:02; LR: 1.575e-05;, pseudo_seg_loss: 1.0290, attn_loss: 0.3184, pseudo_seg_mAcc: 0.8157
+2025-07-11 17:54:42,621 - dist_clip_coco.py - INFO: Iter: 17200; Elasped: 5:29:57; ETA: 20:04:42; LR: 1.570e-05;, pseudo_seg_loss: 1.0377, attn_loss: 0.3139, pseudo_seg_mAcc: 0.8139
+2025-07-11 17:57:02,294 - dist_clip_coco.py - INFO: Iter: 17400; Elasped: 5:32:17; ETA: 19:55:27; LR: 1.565e-05;, pseudo_seg_loss: 1.0851, attn_loss: 0.3194, pseudo_seg_mAcc: 0.6717
+2025-07-11 17:59:23,358 - dist_clip_coco.py - INFO: Iter: 17600; Elasped: 5:34:38; ETA: 19:46:25; LR: 1.560e-05;, pseudo_seg_loss: 0.9988, attn_loss: 0.3161, pseudo_seg_mAcc: 0.8511
+2025-07-11 18:01:44,672 - dist_clip_coco.py - INFO: Iter: 17800; Elasped: 5:36:59; ETA: 19:37:32; LR: 1.555e-05;, pseudo_seg_loss: 0.9955, attn_loss: 0.3142, pseudo_seg_mAcc: 0.7619
+2025-07-11 18:04:05,863 - dist_clip_coco.py - INFO: Iter: 18000; Elasped: 5:39:20; ETA: 19:28:48; LR: 1.550e-05;, pseudo_seg_loss: 1.0365, attn_loss: 0.3160, pseudo_seg_mAcc: 0.7653
+2025-07-11 18:06:26,085 - dist_clip_coco.py - INFO: Iter: 18200; Elasped: 5:41:41; ETA: 19:20:13; LR: 1.545e-05;, pseudo_seg_loss: 1.0315, attn_loss: 0.3198, pseudo_seg_mAcc: 0.9073
+2025-07-11 18:08:45,539 - dist_clip_coco.py - INFO: Iter: 18400; Elasped: 5:44:00; ETA: 19:11:39; LR: 1.540e-05;, pseudo_seg_loss: 0.9351, attn_loss: 0.3113, pseudo_seg_mAcc: 0.6468
+2025-07-11 18:11:05,768 - dist_clip_coco.py - INFO: Iter: 18600; Elasped: 5:46:20; ETA: 19:03:16; LR: 1.535e-05;, pseudo_seg_loss: 1.0463, attn_loss: 0.3161, pseudo_seg_mAcc: 0.7782
+2025-07-11 18:13:25,305 - dist_clip_coco.py - INFO: Iter: 18800; Elasped: 5:48:40; ETA: 18:55:01; LR: 1.530e-05;, pseudo_seg_loss: 0.9924, attn_loss: 0.3058, pseudo_seg_mAcc: 0.7177
+2025-07-11 18:15:45,067 - dist_clip_coco.py - INFO: Iter: 19000; Elasped: 5:50:59; ETA: 18:46:50; LR: 1.525e-05;, pseudo_seg_loss: 0.9837, attn_loss: 0.3160, pseudo_seg_mAcc: 0.7572
+2025-07-11 18:18:05,213 - dist_clip_coco.py - INFO: Iter: 19200; Elasped: 5:53:20; ETA: 18:38:53; LR: 1.520e-05;, pseudo_seg_loss: 0.9467, attn_loss: 0.3139, pseudo_seg_mAcc: 0.7620
+2025-07-11 18:20:24,205 - dist_clip_coco.py - INFO: Iter: 19400; Elasped: 5:55:39; ETA: 18:30:56; LR: 1.515e-05;, pseudo_seg_loss: 1.0058, attn_loss: 0.3139, pseudo_seg_mAcc: 0.8963
+2025-07-11 18:23:16,117 - dist_clip_coco.py - INFO: Iter: 19600; Elasped: 5:58:31; ETA: 18:24:49; LR: 1.510e-05;, pseudo_seg_loss: 1.0238, attn_loss: 0.3135, pseudo_seg_mAcc: 0.8974
+2025-07-11 18:25:36,508 - dist_clip_coco.py - INFO: Iter: 19800; Elasped: 6:00:51; ETA: 18:17:07; LR: 1.505e-05;, pseudo_seg_loss: 1.0021, attn_loss: 0.3149, pseudo_seg_mAcc: 0.7591
+2025-07-11 18:27:53,967 - dist_clip_coco.py - INFO: Iter: 20000; Elasped: 6:03:08; ETA: 18:09:24; LR: 1.500e-05;, pseudo_seg_loss: 0.9806, attn_loss: 0.3124, pseudo_seg_mAcc: 0.5768
+2025-07-11 18:27:53,968 - dist_clip_coco.py - INFO: Validating...
+2025-07-11 20:38:19,433 - dist_clip_coco.py - INFO: cams score:
+2025-07-11 20:38:19,433 - dist_clip_coco.py - INFO: {'pAcc': 0.8157291523294237, 'mAcc': 0.7011351703266668, 'miou': 0.4494907947520615, 'iou': {0: 0.80331064820116, 1: 0.4448291430120187, 2: 0.43875658117829053, 3: 0.4303768892279535, 4: 0.6629481271406625, 5: 0.696763798363852, 6: 0.7700148141262158, 7: 0.756576015131456, 8: 0.5429908318880492, 9: 0.47701365376675736, 10: 0.11249954898177517, 11: 0.5088360557668021, 12: 0.5016929983136322, 13: 0.5459069029835537, 14: 0.35776679203838074, 15: 0.48642885510934475, 16: 0.8066842499981781, 17: 0.7448239720951713, 18: 0.7145751533975606, 19: 0.7249168316814613, 20: 0.7567704801164207, 21: 0.8234845432052333, 22: 0.8472994707351754, 23: 0.7012402392450361, 24: 0.6924688687010575, 25: 0.22892455414456303, 26: 0.5837122503763562, 27: 0.17957576459578062, 28: 0.16942551070347478, 29: 0.5500595816226423, 30: 0.6295539562409334, 31: 0.15806285168308426, 32: 0.180440193025884, 33: 0.06188144008859992, 34: 0.4488372975656281, 35: 0.1318344573982613, 36: 0.18508856789538944, 37: 0.19024947812715773, 38: 0.4346643603168614, 39: 0.19081935523027563, 40: 0.23554712363845723, 41: 0.30758880645236286, 42: 0.2755249553986386, 43: 0.08473514209545345, 44: 0.07606826963232595, 45: 0.06309507917649258, 46: 0.2462238735746898, 47: 0.6437929646232972, 48: 0.5220300509030853, 49: 0.572700748813567, 50: 0.5715230555229309, 51: 0.44309671649187055, 52: 0.2861094931777206, 53: 0.6039641825612753, 54: 0.7053956293866396, 55: 0.6990336206518254, 56: 0.5846093031186516, 57: 0.30229045514698977, 58: 0.5424895924612899, 59: 0.3351248891819935, 60: 0.5916089160173863, 61: 0.40688695074833353, 62: 0.6646896651897076, 63: 0.4601501304027312, 64: 0.5639690102843312, 65: 0.182441522603985, 66: 0.3467966148970595, 67: 0.567429725181464, 68: 0.3269060038810023, 69: 0.3526376826501034, 70: 0.3914645932708363, 71: 0.3747083698656401, 72: 0.31859180487740785, 73: 0.48636447681533207, 74: 0.33426469371677336, 75: 0.30963479124721677, 76: 0.36731911931683214, 77: 0.40569344056190254, 78: 0.7085580953293088, 79: 0.26718943337185164, 80: 0.20840029925813355}}
+2025-07-11 20:38:19,434 - dist_clip_coco.py - INFO: segs score:
+2025-07-11 20:38:19,434 - dist_clip_coco.py - INFO: {'pAcc': 0.8407555095551017, 'mAcc': 0.6072704824340823, 'miou': 0.48203962904718123, 'iou': {0: 0.8277458499003811, 1: 0.49762255038798026, 2: 0.5746101114872767, 3: 0.5280997198231561, 4: 0.6821863128108622, 5: 0.6867688006273299, 6: 0.7709536425303172, 7: 0.7630947808825476, 8: 0.5586353903403395, 9: 0.48351523785621375, 10: 0.4626064209189541, 11: 0.7485925668548659, 12: 0.6287798102726967, 13: 0.6984167910235713, 14: 0.4965430304527101, 15: 0.6722071852270922, 16: 0.7434149885328342, 17: 0.7155185595002792, 18: 0.7166615000588473, 19: 0.721055417680448, 20: 0.7486927058229869, 21: 0.8064459232533507, 22: 0.8368933125726015, 23: 0.7192830586677925, 24: 0.7399898443093673, 25: 0.29591996192516035, 26: 0.7083215855566399, 27: 0.19873790800254962, 28: 0.20258949327673725, 29: 0.5071420782029099, 30: 0.6454068348412333, 31: 0.13669047868125334, 32: 0.31428603715753134, 33: 0.39584197490217654, 34: 0.43229815406486727, 35: 0.1378012506024249, 36: 0.40513837150671056, 37: 0.20741477849768472, 38: 0.631487084590047, 39: 0.24269660216458686, 40: 0.3662826867721838, 41: 0.3742551473251584, 42: 0.3458916190537655, 43: 0.018166963258466874, 44: 0.28182021560569204, 45: 0.07499496987746455, 46: 0.18163216871714713, 47: 0.6510637684611018, 48: 0.5438214043683292, 49: 0.4333573911094946, 50: 0.6444683593337607, 51: 0.4811725000131962, 52: 0.44191379920547186, 53: 0.5691810532348103, 54: 0.5136050462651213, 55: 0.5478020344392015, 56: 0.41628873957688173, 57: 0.37407051843112993, 58: 0.45207079605239975, 59: 0.1992959857157379, 60: 0.5450220287331176, 61: 0.20738582661720115, 62: 0.6951783190997287, 63: 0.4164960961580147, 64: 0.4488582099435572, 65: 0.32658328284061644, 66: 0.4755431122746875, 67: 0.5812128781497317, 68: 0.5592445956789196, 69: 0.4230437761634668, 70: 0.3234021196801438, 71: 0.13149426491239918, 72: 0.40008905009642914, 73: 0.5599550226359877, 74: 0.35320914708861634, 75: 0.5392792122111717, 76: 0.33301910851508704, 77: 0.47605142689956514, 78: 0.6958524626492163, 79: 0.025903023242824886, 80: 0.327125716647369}}
+2025-07-11 20:40:39,780 - dist_clip_coco.py - INFO: Iter: 20200; Elasped: 8:15:54; ETA: 1 day, 0:28:03; LR: 1.495e-05;, pseudo_seg_loss: 0.9662, attn_loss: 0.3124, pseudo_seg_mAcc: 0.7104
+2025-07-11 20:43:00,734 - dist_clip_coco.py - INFO: Iter: 20400; Elasped: 8:18:15; ETA: 1 day, 0:15:40; LR: 1.490e-05;, pseudo_seg_loss: 1.0007, attn_loss: 0.3094, pseudo_seg_mAcc: 0.7112
+2025-07-11 20:45:29,678 - dist_clip_coco.py - INFO: Iter: 20600; Elasped: 8:20:44; ETA: 1 day, 0:03:51; LR: 1.485e-05;, pseudo_seg_loss: 1.0323, attn_loss: 0.3112, pseudo_seg_mAcc: 0.7306
+2025-07-11 20:47:53,655 - dist_clip_coco.py - INFO: Iter: 20800; Elasped: 8:23:08; ETA: 23:51:59; LR: 1.480e-05;, pseudo_seg_loss: 0.9956, attn_loss: 0.3162, pseudo_seg_mAcc: 0.5629
+2025-07-11 20:50:13,804 - dist_clip_coco.py - INFO: Iter: 21000; Elasped: 8:25:28; ETA: 23:40:07; LR: 1.475e-05;, pseudo_seg_loss: 0.9655, attn_loss: 0.3090, pseudo_seg_mAcc: 0.9122
+2025-07-11 20:52:32,813 - dist_clip_coco.py - INFO: Iter: 21200; Elasped: 8:27:47; ETA: 23:28:22; LR: 1.470e-05;, pseudo_seg_loss: 1.0067, attn_loss: 0.3100, pseudo_seg_mAcc: 0.8050
+2025-07-11 20:54:50,979 - dist_clip_coco.py - INFO: Iter: 21400; Elasped: 8:30:05; ETA: 23:16:46; LR: 1.465e-05;, pseudo_seg_loss: 1.0005, attn_loss: 0.3071, pseudo_seg_mAcc: 0.8049
+2025-07-11 20:57:10,201 - dist_clip_coco.py - INFO: Iter: 21600; Elasped: 8:32:25; ETA: 23:05:25; LR: 1.460e-05;, pseudo_seg_loss: 0.9818, attn_loss: 0.3113, pseudo_seg_mAcc: 0.7603
+2025-07-11 20:59:29,253 - dist_clip_coco.py - INFO: Iter: 21800; Elasped: 8:34:44; ETA: 22:54:11; LR: 1.455e-05;, pseudo_seg_loss: 0.9684, attn_loss: 0.3116, pseudo_seg_mAcc: 0.7884
+2025-07-11 21:01:50,109 - dist_clip_coco.py - INFO: Iter: 22000; Elasped: 8:37:05; ETA: 22:43:13; LR: 1.450e-05;, pseudo_seg_loss: 0.9762, attn_loss: 0.3102, pseudo_seg_mAcc: 0.6315
+2025-07-11 21:04:07,766 - dist_clip_coco.py - INFO: Iter: 22200; Elasped: 8:39:22; ETA: 22:32:13; LR: 1.445e-05;, pseudo_seg_loss: 0.9467, attn_loss: 0.3039, pseudo_seg_mAcc: 0.7423
+2025-07-11 21:06:27,603 - dist_clip_coco.py - INFO: Iter: 22400; Elasped: 8:41:42; ETA: 22:21:30; LR: 1.440e-05;, pseudo_seg_loss: 0.9868, attn_loss: 0.3140, pseudo_seg_mAcc: 0.7611
+2025-07-11 21:08:47,499 - dist_clip_coco.py - INFO: Iter: 22600; Elasped: 8:44:02; ETA: 22:10:57; LR: 1.435e-05;, pseudo_seg_loss: 0.9846, attn_loss: 0.3114, pseudo_seg_mAcc: 0.7535
+2025-07-11 21:11:07,889 - dist_clip_coco.py - INFO: Iter: 22800; Elasped: 8:46:22; ETA: 22:00:32; LR: 1.430e-05;, pseudo_seg_loss: 1.0243, attn_loss: 0.3131, pseudo_seg_mAcc: 0.6397
+2025-07-11 21:13:28,108 - dist_clip_coco.py - INFO: Iter: 23000; Elasped: 8:48:43; ETA: 21:50:17; LR: 1.425e-05;, pseudo_seg_loss: 0.9743, attn_loss: 0.3128, pseudo_seg_mAcc: 0.7313
+2025-07-11 21:15:49,565 - dist_clip_coco.py - INFO: Iter: 23200; Elasped: 8:51:04; ETA: 21:40:11; LR: 1.420e-05;, pseudo_seg_loss: 1.0026, attn_loss: 0.3111, pseudo_seg_mAcc: 0.7143
+2025-07-11 21:18:09,926 - dist_clip_coco.py - INFO: Iter: 23400; Elasped: 8:53:24; ETA: 21:30:11; LR: 1.415e-05;, pseudo_seg_loss: 0.9716, attn_loss: 0.3062, pseudo_seg_mAcc: 0.7969
+2025-07-11 21:20:32,410 - dist_clip_coco.py - INFO: Iter: 23600; Elasped: 8:55:47; ETA: 21:20:25; LR: 1.410e-05;, pseudo_seg_loss: 1.0032, attn_loss: 0.3126, pseudo_seg_mAcc: 0.5309
+2025-07-11 21:22:52,027 - dist_clip_coco.py - INFO: Iter: 23800; Elasped: 8:58:06; ETA: 21:10:38; LR: 1.405e-05;, pseudo_seg_loss: 0.9779, attn_loss: 0.3052, pseudo_seg_mAcc: 0.6238
+2025-07-11 21:25:13,922 - dist_clip_coco.py - INFO: Iter: 24000; Elasped: 9:00:28; ETA: 21:01:05; LR: 1.400e-05;, pseudo_seg_loss: 0.9877, attn_loss: 0.3046, pseudo_seg_mAcc: 0.8901
+2025-07-11 21:27:34,593 - dist_clip_coco.py - INFO: Iter: 24200; Elasped: 9:02:49; ETA: 20:51:37; LR: 1.395e-05;, pseudo_seg_loss: 0.9477, attn_loss: 0.3061, pseudo_seg_mAcc: 0.8242
+2025-07-11 21:29:53,342 - dist_clip_coco.py - INFO: Iter: 24400; Elasped: 9:05:08; ETA: 20:42:11; LR: 1.390e-05;, pseudo_seg_loss: 0.9490, attn_loss: 0.3023, pseudo_seg_mAcc: 0.8125
+2025-07-11 21:32:09,232 - dist_clip_coco.py - INFO: Iter: 24600; Elasped: 9:07:24; ETA: 20:32:45; LR: 1.385e-05;, pseudo_seg_loss: 0.9633, attn_loss: 0.3034, pseudo_seg_mAcc: 0.8228
+2025-07-11 21:34:27,507 - dist_clip_coco.py - INFO: Iter: 24800; Elasped: 9:09:42; ETA: 20:23:31; LR: 1.380e-05;, pseudo_seg_loss: 0.9676, attn_loss: 0.3051, pseudo_seg_mAcc: 0.5589
+2025-07-11 21:36:47,595 - dist_clip_coco.py - INFO: Iter: 25000; Elasped: 9:12:02; ETA: 20:14:28; LR: 1.375e-05;, pseudo_seg_loss: 0.9839, attn_loss: 0.3005, pseudo_seg_mAcc: 0.7959
+2025-07-11 21:39:08,791 - dist_clip_coco.py - INFO: Iter: 25200; Elasped: 9:14:23; ETA: 20:05:33; LR: 1.370e-05;, pseudo_seg_loss: 0.9628, attn_loss: 0.3050, pseudo_seg_mAcc: 0.7286
+2025-07-11 21:41:28,256 - dist_clip_coco.py - INFO: Iter: 25400; Elasped: 9:16:43; ETA: 19:56:43; LR: 1.365e-05;, pseudo_seg_loss: 0.9774, attn_loss: 0.3004, pseudo_seg_mAcc: 0.8825
+2025-07-11 21:43:46,971 - dist_clip_coco.py - INFO: Iter: 25600; Elasped: 9:19:01; ETA: 19:47:54; LR: 1.360e-05;, pseudo_seg_loss: 0.9574, attn_loss: 0.3020, pseudo_seg_mAcc: 0.7008
+2025-07-11 21:46:09,418 - dist_clip_coco.py - INFO: Iter: 25800; Elasped: 9:21:24; ETA: 19:39:22; LR: 1.355e-05;, pseudo_seg_loss: 0.9837, attn_loss: 0.3036, pseudo_seg_mAcc: 0.8884
+2025-07-11 21:48:29,039 - dist_clip_coco.py - INFO: Iter: 26000; Elasped: 9:23:43; ETA: 19:30:47; LR: 1.350e-05;, pseudo_seg_loss: 0.9348, attn_loss: 0.3023, pseudo_seg_mAcc: 0.7705
+2025-07-11 21:50:48,182 - dist_clip_coco.py - INFO: Iter: 26200; Elasped: 9:26:03; ETA: 19:22:20; LR: 1.345e-05;, pseudo_seg_loss: 0.9889, attn_loss: 0.3020, pseudo_seg_mAcc: 0.7539
+2025-07-11 21:53:06,313 - dist_clip_coco.py - INFO: Iter: 26400; Elasped: 9:28:21; ETA: 19:13:55; LR: 1.340e-05;, pseudo_seg_loss: 0.9818, attn_loss: 0.3030, pseudo_seg_mAcc: 0.7324
+2025-07-11 21:55:25,665 - dist_clip_coco.py - INFO: Iter: 26600; Elasped: 9:30:40; ETA: 19:05:37; LR: 1.335e-05;, pseudo_seg_loss: 0.9691, attn_loss: 0.3058, pseudo_seg_mAcc: 0.9212
+2025-07-11 21:57:46,766 - dist_clip_coco.py - INFO: Iter: 26800; Elasped: 9:33:01; ETA: 18:57:28; LR: 1.330e-05;, pseudo_seg_loss: 0.9929, attn_loss: 0.3029, pseudo_seg_mAcc: 0.7266
+2025-07-11 22:00:07,462 - dist_clip_coco.py - INFO: Iter: 27000; Elasped: 9:35:22; ETA: 18:49:25; LR: 1.325e-05;, pseudo_seg_loss: 0.9842, attn_loss: 0.3004, pseudo_seg_mAcc: 0.8161
+2025-07-11 22:02:27,491 - dist_clip_coco.py - INFO: Iter: 27200; Elasped: 9:37:42; ETA: 18:41:25; LR: 1.320e-05;, pseudo_seg_loss: 1.0135, attn_loss: 0.3026, pseudo_seg_mAcc: 0.8815
+2025-07-11 22:04:45,272 - dist_clip_coco.py - INFO: Iter: 27400; Elasped: 9:40:00; ETA: 18:33:25; LR: 1.315e-05;, pseudo_seg_loss: 0.9553, attn_loss: 0.2971, pseudo_seg_mAcc: 0.7364
+2025-07-11 22:07:05,603 - dist_clip_coco.py - INFO: Iter: 27600; Elasped: 9:42:20; ETA: 18:25:35; LR: 1.310e-05;, pseudo_seg_loss: 0.9803, attn_loss: 0.3060, pseudo_seg_mAcc: 0.6488
+2025-07-11 22:09:24,105 - dist_clip_coco.py - INFO: Iter: 27800; Elasped: 9:44:39; ETA: 18:17:47; LR: 1.305e-05;, pseudo_seg_loss: 0.9575, attn_loss: 0.3019, pseudo_seg_mAcc: 0.8246
+2025-07-11 22:11:45,935 - dist_clip_coco.py - INFO: Iter: 28000; Elasped: 9:47:00; ETA: 18:10:08; LR: 1.300e-05;, pseudo_seg_loss: 1.0094, attn_loss: 0.3013, pseudo_seg_mAcc: 0.7953
+2025-07-11 22:14:08,206 - dist_clip_coco.py - INFO: Iter: 28200; Elasped: 9:49:23; ETA: 18:02:37; LR: 1.295e-05;, pseudo_seg_loss: 0.9863, attn_loss: 0.3075, pseudo_seg_mAcc: 0.7389
+2025-07-11 22:16:31,615 - dist_clip_coco.py - INFO: Iter: 28400; Elasped: 9:51:46; ETA: 17:55:10; LR: 1.290e-05;, pseudo_seg_loss: 0.9823, attn_loss: 0.3027, pseudo_seg_mAcc: 0.9391
+2025-07-11 22:18:51,935 - dist_clip_coco.py - INFO: Iter: 28600; Elasped: 9:54:06; ETA: 17:47:43; LR: 1.285e-05;, pseudo_seg_loss: 0.9688, attn_loss: 0.3000, pseudo_seg_mAcc: 0.7917
+2025-07-11 22:21:11,083 - dist_clip_coco.py - INFO: Iter: 28800; Elasped: 9:56:25; ETA: 17:40:17; LR: 1.280e-05;, pseudo_seg_loss: 0.9314, attn_loss: 0.2984, pseudo_seg_mAcc: 0.8124
+2025-07-11 22:23:33,379 - dist_clip_coco.py - INFO: Iter: 29000; Elasped: 9:58:48; ETA: 17:33:03; LR: 1.275e-05;, pseudo_seg_loss: 1.0145, attn_loss: 0.3028, pseudo_seg_mAcc: 0.8047
+2025-07-11 22:25:51,963 - dist_clip_coco.py - INFO: Iter: 29200; Elasped: 10:01:06; ETA: 17:25:44; LR: 1.270e-05;, pseudo_seg_loss: 0.9783, attn_loss: 0.3049, pseudo_seg_mAcc: 0.7644
+2025-07-11 22:28:09,482 - dist_clip_coco.py - INFO: Iter: 29400; Elasped: 10:03:24; ETA: 17:18:30; LR: 1.265e-05;, pseudo_seg_loss: 0.9712, attn_loss: 0.2989, pseudo_seg_mAcc: 0.5792
+2025-07-11 22:30:27,612 - dist_clip_coco.py - INFO: Iter: 29600; Elasped: 10:05:42; ETA: 17:11:19; LR: 1.260e-05;, pseudo_seg_loss: 0.9537, attn_loss: 0.3012, pseudo_seg_mAcc: 0.6999
+2025-07-11 22:32:47,769 - dist_clip_coco.py - INFO: Iter: 29800; Elasped: 10:08:02; ETA: 17:04:16; LR: 1.255e-05;, pseudo_seg_loss: 0.9521, attn_loss: 0.3005, pseudo_seg_mAcc: 0.8479
+2025-07-11 22:35:09,931 - dist_clip_coco.py - INFO: Iter: 30000; Elasped: 10:10:24; ETA: 16:57:20; LR: 1.250e-05;, pseudo_seg_loss: 0.9908, attn_loss: 0.3032, pseudo_seg_mAcc: 0.7090
+2025-07-11 22:35:09,932 - dist_clip_coco.py - INFO: Validating...
+2025-07-12 00:45:50,157 - dist_clip_coco.py - INFO: cams score:
+2025-07-12 00:45:50,157 - dist_clip_coco.py - INFO: {'pAcc': 0.8175863372261443, 'mAcc': 0.7002270707695161, 'miou': 0.45414128821825867, 'iou': {0: 0.8052296950106786, 1: 0.43848044808821796, 2: 0.44509052195071186, 3: 0.4704595270115934, 4: 0.6824255905528571, 5: 0.6988420702990704, 6: 0.7762122172452716, 7: 0.7528099843800683, 8: 0.5554563273136871, 9: 0.4639538862212135, 10: 0.16951805561810623, 11: 0.5361603876075751, 12: 0.5484185593359199, 13: 0.6399374411723032, 14: 0.341820764923454, 15: 0.4727266155507933, 16: 0.8133844738447795, 17: 0.7398564117122489, 18: 0.7210043720551355, 19: 0.723759613864223, 20: 0.7717569785405173, 21: 0.8233293907021467, 22: 0.8545408436701973, 23: 0.6959676499722638, 24: 0.6705821572613012, 25: 0.23598710833493156, 26: 0.5747229739635813, 27: 0.18640724405569867, 28: 0.18238075404516133, 29: 0.541491699045034, 30: 0.5910922322639982, 31: 0.12155889910094338, 32: 0.162153713854056, 33: 0.053697527331553016, 34: 0.3713782577418272, 35: 0.1347537487791491, 36: 0.19168477960705466, 37: 0.19876932307277825, 38: 0.36804682519238235, 39: 0.22226121130108512, 40: 0.24876257185514858, 41: 0.295840494388134, 42: 0.2975005187986889, 43: 0.09496993467233182, 44: 0.07476556601157043, 45: 0.07399450744153083, 46: 0.2612518589094104, 47: 0.6349439936476471, 48: 0.5217097008850234, 49: 0.5575737725570837, 50: 0.5659111154086753, 51: 0.42000535464517735, 52: 0.2849875723784597, 53: 0.569316884341051, 54: 0.6943344161551637, 55: 0.6965535095544714, 56: 0.5818803438491981, 57: 0.2846990663793315, 58: 0.556773459475458, 59: 0.33691604877119713, 60: 0.5993003292874298, 61: 0.40346111648611094, 62: 0.7049862372575988, 63: 0.4856807346971312, 64: 0.5482856371748824, 65: 0.18549247362806684, 66: 0.37405484485147666, 67: 0.534801841781854, 68: 0.3589554872218304, 69: 0.44251583970379355, 70: 0.3989626211563653, 71: 0.4287971388820188, 72: 0.31927115895554775, 73: 0.502230903903984, 74: 0.35003112259886493, 75: 0.32647858706286126, 76: 0.3733374484391713, 77: 0.4114531305476778, 78: 0.6991784180927771, 79: 0.3210463401883213, 80: 0.21632196204287016}}
+2025-07-12 00:45:50,157 - dist_clip_coco.py - INFO: segs score:
+2025-07-12 00:45:50,157 - dist_clip_coco.py - INFO: {'pAcc': 0.8409415305775885, 'mAcc': 0.5958358323570805, 'miou': 0.4914865341232582, 'iou': {0: 0.8256614320086595, 1: 0.529705576506522, 2: 0.5118313078778808, 3: 0.49364594298129305, 4: 0.7103095284705793, 5: 0.7326380523340575, 6: 0.7301112551221662, 7: 0.7441338608526429, 8: 0.500737906010541, 9: 0.469670117699124, 10: 0.5080550036258092, 11: 0.7857586347251588, 12: 0.6765996526186457, 13: 0.6801719244995472, 14: 0.4741030788192829, 15: 0.6786172332268842, 16: 0.7645128663666131, 17: 0.7209359297269068, 18: 0.7041252946520397, 19: 0.7312084743957191, 20: 0.7772672399557458, 21: 0.8213135970891431, 22: 0.8324208870745043, 23: 0.7672365472013074, 24: 0.7242402430171584, 25: 0.31023978615930053, 26: 0.6965888867070936, 27: 0.23095201285313627, 28: 0.3184116655865381, 29: 0.5076616362227605, 30: 0.6962656055983403, 31: 0.19085776750908304, 32: 0.4294588669040979, 33: 0.3789223015210784, 34: 0.4735505017827482, 35: 0.3028677725847036, 36: 0.24658616212325804, 37: 0.3168403916296683, 38: 0.596170919654802, 39: 0.46100862971451206, 40: 0.34939495460341097, 41: 0.33994358114926965, 42: 0.3195116803003213, 43: 0.24209389662256417, 44: 0.2971702272982717, 45: 0.1605649242132662, 46: 0.1680707558699562, 47: 0.662569540744783, 48: 0.4879976198912797, 49: 0.3479534281869479, 50: 0.41552722061031805, 51: 0.535725904560037, 52: 0.42964641401066667, 53: 0.4551368477922098, 54: 0.24773447095140302, 55: 0.42240620383849764, 56: 0.407615786656078, 57: 0.33591032388877, 58: 0.4125402723116187, 59: 0.2230434270772375, 60: 0.4835311644327655, 61: 0.25493554098919236, 62: 0.7170603389192873, 63: 0.4737760568432103, 64: 0.5298990659145514, 65: 0.3513139629390765, 66: 0.47600814991142826, 67: 0.5847715721276902, 68: 0.5900912212333963, 69: 0.41740806093504945, 70: 0.3560340255596952, 71: 0.3412443726487368, 72: 0.3970635214339396, 73: 0.4634081134646231, 74: 0.33569509039661166, 75: 0.5636827481952232, 76: 0.3520251212670665, 77: 0.4387444515025159, 78: 0.6584608949690995, 79: 0.38378801296546267, 80: 0.3295158033493302}}
+2025-07-12 00:48:11,831 - dist_clip_coco.py - INFO: Iter: 30200; Elasped: 12:23:26; ETA: 20:25:55; LR: 1.245e-05;, pseudo_seg_loss: 0.9709, attn_loss: 0.3074, pseudo_seg_mAcc: 0.7345
+2025-07-12 00:50:29,022 - dist_clip_coco.py - INFO: Iter: 30400; Elasped: 12:25:43; ETA: 20:16:41; LR: 1.240e-05;, pseudo_seg_loss: 0.9437, attn_loss: 0.2960, pseudo_seg_mAcc: 0.6479
+2025-07-12 00:52:48,517 - dist_clip_coco.py - INFO: Iter: 30600; Elasped: 12:28:03; ETA: 20:07:38; LR: 1.235e-05;, pseudo_seg_loss: 0.9760, attn_loss: 0.3056, pseudo_seg_mAcc: 0.7186
+2025-07-12 00:55:15,212 - dist_clip_coco.py - INFO: Iter: 30800; Elasped: 12:30:30; ETA: 19:58:51; LR: 1.230e-05;, pseudo_seg_loss: 0.9633, attn_loss: 0.2955, pseudo_seg_mAcc: 0.7644
+2025-07-12 00:57:33,860 - dist_clip_coco.py - INFO: Iter: 31000; Elasped: 12:32:48; ETA: 19:49:54; LR: 1.225e-05;, pseudo_seg_loss: 0.9652, attn_loss: 0.3072, pseudo_seg_mAcc: 0.9138
+2025-07-12 00:59:53,750 - dist_clip_coco.py - INFO: Iter: 31200; Elasped: 12:35:08; ETA: 19:41:06; LR: 1.220e-05;, pseudo_seg_loss: 0.9646, attn_loss: 0.3023, pseudo_seg_mAcc: 0.8606
+2025-07-12 01:02:15,250 - dist_clip_coco.py - INFO: Iter: 31400; Elasped: 12:37:30; ETA: 19:32:26; LR: 1.215e-05;, pseudo_seg_loss: 0.9380, attn_loss: 0.3078, pseudo_seg_mAcc: 0.8941
+2025-07-12 01:04:34,925 - dist_clip_coco.py - INFO: Iter: 31600; Elasped: 12:39:49; ETA: 19:23:46; LR: 1.210e-05;, pseudo_seg_loss: 0.9309, attn_loss: 0.3044, pseudo_seg_mAcc: 0.8691
+2025-07-12 01:06:56,266 - dist_clip_coco.py - INFO: Iter: 31800; Elasped: 12:42:11; ETA: 19:15:15; LR: 1.205e-05;, pseudo_seg_loss: 0.9702, attn_loss: 0.3076, pseudo_seg_mAcc: 0.6487
+2025-07-12 01:09:17,538 - dist_clip_coco.py - INFO: Iter: 32000; Elasped: 12:44:32; ETA: 19:06:48; LR: 1.200e-05;, pseudo_seg_loss: 0.9777, attn_loss: 0.3035, pseudo_seg_mAcc: 0.6974
+2025-07-12 01:11:37,949 - dist_clip_coco.py - INFO: Iter: 32200; Elasped: 12:46:52; ETA: 18:58:23; LR: 1.195e-05;, pseudo_seg_loss: 0.9503, attn_loss: 0.3014, pseudo_seg_mAcc: 0.8085
+2025-07-12 01:13:58,625 - dist_clip_coco.py - INFO: Iter: 32400; Elasped: 12:49:13; ETA: 18:50:05; LR: 1.190e-05;, pseudo_seg_loss: 0.9581, attn_loss: 0.2992, pseudo_seg_mAcc: 0.8531
+2025-07-12 01:16:17,270 - dist_clip_coco.py - INFO: Iter: 32600; Elasped: 12:51:32; ETA: 18:41:48; LR: 1.185e-05;, pseudo_seg_loss: 0.9967, attn_loss: 0.3020, pseudo_seg_mAcc: 0.7306
+2025-07-12 01:18:38,592 - dist_clip_coco.py - INFO: Iter: 32800; Elasped: 12:53:53; ETA: 18:33:38; LR: 1.180e-05;, pseudo_seg_loss: 0.9583, attn_loss: 0.2955, pseudo_seg_mAcc: 0.7052
+2025-07-12 01:20:57,920 - dist_clip_coco.py - INFO: Iter: 33000; Elasped: 12:56:12; ETA: 18:25:29; LR: 1.175e-05;, pseudo_seg_loss: 0.9270, attn_loss: 0.3004, pseudo_seg_mAcc: 0.7366
+2025-07-12 01:23:17,941 - dist_clip_coco.py - INFO: Iter: 33200; Elasped: 12:58:32; ETA: 18:17:27; LR: 1.170e-05;, pseudo_seg_loss: 0.9314, attn_loss: 0.2996, pseudo_seg_mAcc: 0.6089
+2025-07-12 01:25:37,524 - dist_clip_coco.py - INFO: Iter: 33400; Elasped: 13:00:52; ETA: 18:09:28; LR: 1.165e-05;, pseudo_seg_loss: 0.9879, attn_loss: 0.3079, pseudo_seg_mAcc: 0.7553
+2025-07-12 01:27:56,989 - dist_clip_coco.py - INFO: Iter: 33600; Elasped: 13:03:11; ETA: 18:01:32; LR: 1.160e-05;, pseudo_seg_loss: 0.9540, attn_loss: 0.2999, pseudo_seg_mAcc: 0.5268
+2025-07-12 01:30:16,777 - dist_clip_coco.py - INFO: Iter: 33800; Elasped: 13:05:31; ETA: 17:53:41; LR: 1.155e-05;, pseudo_seg_loss: 0.9610, attn_loss: 0.3019, pseudo_seg_mAcc: 0.7284
+2025-07-12 01:32:35,836 - dist_clip_coco.py - INFO: Iter: 34000; Elasped: 13:07:50; ETA: 17:45:53; LR: 1.150e-05;, pseudo_seg_loss: 0.9691, attn_loss: 0.2984, pseudo_seg_mAcc: 0.8041
+2025-07-12 01:34:53,945 - dist_clip_coco.py - INFO: Iter: 34200; Elasped: 13:10:08; ETA: 17:38:07; LR: 1.145e-05;, pseudo_seg_loss: 0.9316, attn_loss: 0.2982, pseudo_seg_mAcc: 0.7519
+2025-07-12 01:37:15,751 - dist_clip_coco.py - INFO: Iter: 34400; Elasped: 13:12:30; ETA: 17:30:31; LR: 1.140e-05;, pseudo_seg_loss: 0.9804, attn_loss: 0.2993, pseudo_seg_mAcc: 0.7541
+2025-07-12 01:39:34,284 - dist_clip_coco.py - INFO: Iter: 34600; Elasped: 13:14:49; ETA: 17:22:54; LR: 1.135e-05;, pseudo_seg_loss: 0.9673, attn_loss: 0.2992, pseudo_seg_mAcc: 0.8292
+2025-07-12 01:41:53,640 - dist_clip_coco.py - INFO: Iter: 34800; Elasped: 13:17:08; ETA: 17:15:21; LR: 1.130e-05;, pseudo_seg_loss: 0.9461, attn_loss: 0.2987, pseudo_seg_mAcc: 0.7724
+2025-07-12 01:44:15,086 - dist_clip_coco.py - INFO: Iter: 35000; Elasped: 13:19:30; ETA: 17:07:55; LR: 1.125e-05;, pseudo_seg_loss: 0.9666, attn_loss: 0.3040, pseudo_seg_mAcc: 0.7459
+2025-07-12 01:46:34,526 - dist_clip_coco.py - INFO: Iter: 35200; Elasped: 13:21:49; ETA: 17:00:29; LR: 1.120e-05;, pseudo_seg_loss: 0.9408, attn_loss: 0.3050, pseudo_seg_mAcc: 0.6934
+2025-07-12 01:48:55,580 - dist_clip_coco.py - INFO: Iter: 35400; Elasped: 13:24:10; ETA: 16:53:09; LR: 1.115e-05;, pseudo_seg_loss: 0.9581, attn_loss: 0.2982, pseudo_seg_mAcc: 0.7500
+2025-07-12 01:51:14,349 - dist_clip_coco.py - INFO: Iter: 35600; Elasped: 13:26:29; ETA: 16:45:50; LR: 1.110e-05;, pseudo_seg_loss: 0.9679, attn_loss: 0.2971, pseudo_seg_mAcc: 0.5704
+2025-07-12 01:53:33,458 - dist_clip_coco.py - INFO: Iter: 35800; Elasped: 13:28:48; ETA: 16:38:34; LR: 1.105e-05;, pseudo_seg_loss: 0.9543, attn_loss: 0.2969, pseudo_seg_mAcc: 0.6803
+2025-07-12 01:55:53,883 - dist_clip_coco.py - INFO: Iter: 36000; Elasped: 13:31:08; ETA: 16:31:23; LR: 1.100e-05;, pseudo_seg_loss: 0.9318, attn_loss: 0.3033, pseudo_seg_mAcc: 0.7579
+2025-07-12 01:58:14,896 - dist_clip_coco.py - INFO: Iter: 36200; Elasped: 13:33:29; ETA: 16:24:16; LR: 1.095e-05;, pseudo_seg_loss: 0.9844, attn_loss: 0.2992, pseudo_seg_mAcc: 0.5958
+2025-07-12 02:00:34,919 - dist_clip_coco.py - INFO: Iter: 36400; Elasped: 13:35:49; ETA: 16:17:11; LR: 1.090e-05;, pseudo_seg_loss: 0.9893, attn_loss: 0.2980, pseudo_seg_mAcc: 0.7908
+2025-07-12 02:02:53,065 - dist_clip_coco.py - INFO: Iter: 36600; Elasped: 13:38:07; ETA: 16:10:06; LR: 1.085e-05;, pseudo_seg_loss: 0.9312, attn_loss: 0.2913, pseudo_seg_mAcc: 0.8122
+2025-07-12 02:05:12,704 - dist_clip_coco.py - INFO: Iter: 36800; Elasped: 13:40:27; ETA: 16:03:08; LR: 1.080e-05;, pseudo_seg_loss: 0.9596, attn_loss: 0.3005, pseudo_seg_mAcc: 0.7501
+2025-07-12 02:07:32,467 - dist_clip_coco.py - INFO: Iter: 37000; Elasped: 13:42:47; ETA: 15:56:12; LR: 1.075e-05;, pseudo_seg_loss: 0.9380, attn_loss: 0.3015, pseudo_seg_mAcc: 0.7848
+2025-07-12 02:09:53,013 - dist_clip_coco.py - INFO: Iter: 37200; Elasped: 13:45:07; ETA: 15:49:19; LR: 1.070e-05;, pseudo_seg_loss: 1.0011, attn_loss: 0.2998, pseudo_seg_mAcc: 0.7337
+2025-07-12 02:12:12,688 - dist_clip_coco.py - INFO: Iter: 37400; Elasped: 13:47:27; ETA: 15:42:29; LR: 1.065e-05;, pseudo_seg_loss: 0.9856, attn_loss: 0.2956, pseudo_seg_mAcc: 0.7952
+2025-07-12 02:14:31,490 - dist_clip_coco.py - INFO: Iter: 37600; Elasped: 13:49:46; ETA: 15:35:41; LR: 1.060e-05;, pseudo_seg_loss: 0.9286, attn_loss: 0.2969, pseudo_seg_mAcc: 0.7433
+2025-07-12 02:16:52,191 - dist_clip_coco.py - INFO: Iter: 37800; Elasped: 13:52:07; ETA: 15:28:58; LR: 1.055e-05;, pseudo_seg_loss: 0.9653, attn_loss: 0.2982, pseudo_seg_mAcc: 0.7226
+2025-07-12 02:19:12,665 - dist_clip_coco.py - INFO: Iter: 38000; Elasped: 13:54:27; ETA: 15:22:17; LR: 1.050e-05;, pseudo_seg_loss: 0.9632, attn_loss: 0.2968, pseudo_seg_mAcc: 0.6046
+2025-07-12 02:21:35,467 - dist_clip_coco.py - INFO: Iter: 38200; Elasped: 13:56:50; ETA: 15:15:41; LR: 1.045e-05;, pseudo_seg_loss: 0.9506, attn_loss: 0.2963, pseudo_seg_mAcc: 0.8249
+2025-07-12 02:23:55,681 - dist_clip_coco.py - INFO: Iter: 38400; Elasped: 13:59:10; ETA: 15:09:05; LR: 1.040e-05;, pseudo_seg_loss: 0.9091, attn_loss: 0.2937, pseudo_seg_mAcc: 0.7376
+2025-07-12 02:26:16,739 - dist_clip_coco.py - INFO: Iter: 38600; Elasped: 14:01:31; ETA: 15:02:33; LR: 1.035e-05;, pseudo_seg_loss: 0.9642, attn_loss: 0.2970, pseudo_seg_mAcc: 0.7519
+2025-07-12 02:28:35,646 - dist_clip_coco.py - INFO: Iter: 38800; Elasped: 14:03:50; ETA: 14:56:01; LR: 1.030e-05;, pseudo_seg_loss: 1.0033, attn_loss: 0.2934, pseudo_seg_mAcc: 0.6742
+2025-07-12 02:30:56,421 - dist_clip_coco.py - INFO: Iter: 39000; Elasped: 14:06:11; ETA: 14:49:34; LR: 1.025e-05;, pseudo_seg_loss: 0.9850, attn_loss: 0.3002, pseudo_seg_mAcc: 0.7712
+2025-07-12 02:33:15,302 - dist_clip_coco.py - INFO: Iter: 39200; Elasped: 14:08:30; ETA: 14:43:07; LR: 1.020e-05;, pseudo_seg_loss: 0.9634, attn_loss: 0.2991, pseudo_seg_mAcc: 0.7264
+2025-07-12 02:35:34,643 - dist_clip_coco.py - INFO: Iter: 39400; Elasped: 14:10:49; ETA: 14:36:43; LR: 1.015e-05;, pseudo_seg_loss: 0.9299, attn_loss: 0.2912, pseudo_seg_mAcc: 0.7933
+2025-07-12 02:37:55,435 - dist_clip_coco.py - INFO: Iter: 39600; Elasped: 14:13:10; ETA: 14:30:24; LR: 1.010e-05;, pseudo_seg_loss: 0.9228, attn_loss: 0.2977, pseudo_seg_mAcc: 0.7858
+2025-07-12 02:40:14,511 - dist_clip_coco.py - INFO: Iter: 39800; Elasped: 14:15:29; ETA: 14:24:04; LR: 1.005e-05;, pseudo_seg_loss: 0.9866, attn_loss: 0.2961, pseudo_seg_mAcc: 0.6303
+2025-07-12 02:42:37,965 - dist_clip_coco.py - INFO: Iter: 40000; Elasped: 14:17:52; ETA: 14:17:52; LR: 1.000e-05;, pseudo_seg_loss: 0.9920, attn_loss: 0.3016, pseudo_seg_mAcc: 0.7426
+2025-07-12 02:42:37,965 - dist_clip_coco.py - INFO: Validating...
+2025-07-12 04:53:18,693 - dist_clip_coco.py - INFO: cams score:
+2025-07-12 04:53:18,693 - dist_clip_coco.py - INFO: {'pAcc': 0.8115086036747025, 'mAcc': 0.6927508223171434, 'miou': 0.44358567579284597, 'iou': {0: 0.7984355532490172, 1: 0.42720234553797903, 2: 0.4396308917913351, 3: 0.4642395730342159, 4: 0.6857865550867771, 5: 0.6662752776274129, 6: 0.7713053397430726, 7: 0.7309384752913474, 8: 0.5395997235803482, 9: 0.45787673455119854, 10: 0.18468901007420285, 11: 0.4923359829029625, 12: 0.5301378652550006, 13: 0.5547743440475841, 14: 0.31556191318208626, 15: 0.448661796870229, 16: 0.8131429639594174, 17: 0.7369805984982376, 18: 0.7097312247014265, 19: 0.7125406411563824, 20: 0.7540171759450383, 21: 0.8162268224154312, 22: 0.8346736717992199, 23: 0.6878002762863406, 24: 0.67681031584789, 25: 0.23533962197787156, 26: 0.5638539888267652, 27: 0.19255284833006756, 28: 0.17554827181745694, 29: 0.5486913407331611, 30: 0.6026254474507401, 31: 0.12176221077459795, 32: 0.14854487560752866, 33: 0.05386169257972609, 34: 0.3740868810807461, 35: 0.11463991434821522, 36: 0.1796786417838385, 37: 0.18941059995796258, 38: 0.3826424840588685, 39: 0.21356920662296508, 40: 0.2338640480454803, 41: 0.30656455970758106, 42: 0.27920667258596704, 43: 0.09090293698679738, 44: 0.07245266303877125, 45: 0.07107612720764692, 46: 0.2509541843965831, 47: 0.6280628103477061, 48: 0.5207599782862661, 49: 0.5596649002847515, 50: 0.5600274686639949, 51: 0.4208064266019832, 52: 0.26874977367427905, 53: 0.5777860371181158, 54: 0.6796601363229104, 55: 0.6989941325091954, 56: 0.5605982621967959, 57: 0.27219629174556775, 58: 0.552482025987224, 59: 0.33416242526317996, 60: 0.5916583078000627, 61: 0.40347161476028076, 62: 0.6458470833729759, 63: 0.4902226318709863, 64: 0.537899151582027, 65: 0.19322978801393353, 66: 0.36556520451052643, 67: 0.5341246655151719, 68: 0.3496642663821009, 69: 0.4327992217925042, 70: 0.36790134484509607, 71: 0.3592875475215123, 72: 0.28156326384324337, 73: 0.4538491267732253, 74: 0.35686319010965156, 75: 0.3200388326428689, 76: 0.3602546337433372, 77: 0.4091063337063372, 78: 0.6929464638136067, 79: 0.3028711317810659, 80: 0.19612097548455162}}
+2025-07-12 04:53:18,693 - dist_clip_coco.py - INFO: segs score:
+2025-07-12 04:53:18,693 - dist_clip_coco.py - INFO: {'pAcc': 0.8413254684302629, 'mAcc': 0.5807753586817735, 'miou': 0.475208950978228, 'iou': {0: 0.8290023619145049, 1: 0.532270811716596, 2: 0.543467412426634, 3: 0.5163593753249522, 4: 0.7130024071591133, 5: 0.7311862255514845, 6: 0.758179495272811, 7: 0.7268579504126781, 8: 0.546601968231856, 9: 0.5131159101413943, 10: 0.5196383467915239, 11: 0.7264434364925937, 12: 0.6689021749812494, 13: 0.2280361797706907, 14: 0.41527285556465093, 15: 0.6369236306108237, 16: 0.7577320172190498, 17: 0.7394016524745665, 18: 0.6941579407770497, 19: 0.7070532415269501, 20: 0.748526483654922, 21: 0.7395503048322036, 22: 0.7739670452417184, 23: 0.6551441165995373, 24: 0.6062255354403687, 25: 0.32156026007734134, 26: 0.7202526784598897, 27: 0.2543078774567572, 28: 0.1930336950858039, 29: 0.5510460919150063, 30: 0.6722401157883328, 31: 0.15162298418398817, 32: 0.36064070978816976, 33: 0.4919700369741646, 34: 0.5303341644494334, 35: 0.19251416437859667, 36: 0.3943601103843298, 37: 0.2857580094218197, 38: 0.5864103425786401, 39: 0.30867348752249857, 40: 0.29353052239753313, 41: 0.3325894264658056, 42: 0.3134055011894262, 43: 0.21754045410538358, 44: 0.3039941822152367, 45: 0.15999901838411906, 46: 0.22344035211306204, 47: 0.6378765841684209, 48: 0.5287287367323571, 49: 0.4097956986919795, 50: 0.48354796724798255, 51: 0.39977088849057274, 52: 0.3307883975913402, 53: 0.5213790804567353, 54: 0.4959331740105441, 55: 0.4501097064503207, 56: 0.3277636819441873, 57: 0.322397558053968, 58: 0.5193692473932767, 59: 0.20965494053946782, 60: 0.5593801119163719, 61: 0.2866511150938792, 62: 0.6729560183098451, 63: 0.4298988587186579, 64: 0.4248574783551577, 65: 0.3906467907638361, 66: 0.4834416118264898, 67: 0.4296533405616235, 68: 0.5621765635775242, 69: 0.4673066133535306, 70: 0.29874671208880205, 71: 0.03628779342462408, 72: 0.44517160300702113, 73: 0.42825107518600947, 74: 0.3459984724875094, 75: 0.5835514043992435, 76: 0.32611037742984395, 77: 0.46133067895511654, 78: 0.6184431509784739, 79: 0.3550540487513197, 80: 0.3626524828151791}}
+2025-07-12 04:55:39,955 - dist_clip_coco.py - INFO: Iter: 40200; Elasped: 16:30:54; ETA: 16:21:02; LR: 9.950e-06;, pseudo_seg_loss: 0.5437, attn_loss: 0.2961, pseudo_seg_mAcc: 0.8053
+2025-07-12 04:57:59,488 - dist_clip_coco.py - INFO: Iter: 40400; Elasped: 16:33:14; ETA: 16:13:33; LR: 9.900e-06;, pseudo_seg_loss: 0.4305, attn_loss: 0.2954, pseudo_seg_mAcc: 0.9291
+2025-07-12 05:00:18,443 - dist_clip_coco.py - INFO: Iter: 40600; Elasped: 16:35:33; ETA: 16:06:07; LR: 9.850e-06;, pseudo_seg_loss: 0.3843, attn_loss: 0.2922, pseudo_seg_mAcc: 0.7384
+2025-07-12 05:02:35,837 - dist_clip_coco.py - INFO: Iter: 40800; Elasped: 16:37:50; ETA: 15:58:42; LR: 9.800e-06;, pseudo_seg_loss: 0.3895, attn_loss: 0.2872, pseudo_seg_mAcc: 0.9619
+2025-07-12 05:04:53,983 - dist_clip_coco.py - INFO: Iter: 41000; Elasped: 16:40:08; ETA: 15:51:20; LR: 9.750e-06;, pseudo_seg_loss: 0.4011, attn_loss: 0.2900, pseudo_seg_mAcc: 0.9523
+2025-07-12 05:07:19,062 - dist_clip_coco.py - INFO: Iter: 41200; Elasped: 16:42:33; ETA: 15:44:08; LR: 9.700e-06;, pseudo_seg_loss: 0.3989, attn_loss: 0.2921, pseudo_seg_mAcc: 0.9723
+2025-07-12 05:09:38,912 - dist_clip_coco.py - INFO: Iter: 41400; Elasped: 16:44:53; ETA: 15:36:55; LR: 9.650e-06;, pseudo_seg_loss: 0.3774, attn_loss: 0.2909, pseudo_seg_mAcc: 0.9551
+2025-07-12 05:11:58,364 - dist_clip_coco.py - INFO: Iter: 41600; Elasped: 16:47:13; ETA: 15:29:44; LR: 9.600e-06;, pseudo_seg_loss: 0.3595, attn_loss: 0.2866, pseudo_seg_mAcc: 0.9531
+2025-07-12 05:14:18,882 - dist_clip_coco.py - INFO: Iter: 41800; Elasped: 16:49:33; ETA: 15:22:36; LR: 9.550e-06;, pseudo_seg_loss: 0.4157, attn_loss: 0.2883, pseudo_seg_mAcc: 0.9264
+2025-07-12 05:16:37,103 - dist_clip_coco.py - INFO: Iter: 42000; Elasped: 16:51:52; ETA: 15:15:29; LR: 9.500e-06;, pseudo_seg_loss: 0.4039, attn_loss: 0.2800, pseudo_seg_mAcc: 0.8845
+2025-07-12 05:18:56,056 - dist_clip_coco.py - INFO: Iter: 42200; Elasped: 16:54:10; ETA: 15:08:25; LR: 9.450e-06;, pseudo_seg_loss: 0.3917, attn_loss: 0.2836, pseudo_seg_mAcc: 0.9720
+2025-07-12 05:21:15,721 - dist_clip_coco.py - INFO: Iter: 42400; Elasped: 16:56:30; ETA: 15:01:25; LR: 9.400e-06;, pseudo_seg_loss: 0.4005, attn_loss: 0.2892, pseudo_seg_mAcc: 0.8104
+2025-07-12 05:23:36,075 - dist_clip_coco.py - INFO: Iter: 42600; Elasped: 16:58:50; ETA: 14:54:28; LR: 9.350e-06;, pseudo_seg_loss: 0.3878, attn_loss: 0.2889, pseudo_seg_mAcc: 0.8871
+2025-07-12 05:25:55,952 - dist_clip_coco.py - INFO: Iter: 42800; Elasped: 17:01:10; ETA: 14:47:33; LR: 9.300e-06;, pseudo_seg_loss: 0.3746, attn_loss: 0.2804, pseudo_seg_mAcc: 0.9562
+2025-07-12 05:28:16,614 - dist_clip_coco.py - INFO: Iter: 43000; Elasped: 17:03:31; ETA: 14:40:42; LR: 9.250e-06;, pseudo_seg_loss: 0.3854, attn_loss: 0.2842, pseudo_seg_mAcc: 0.9606
+2025-07-12 05:30:37,957 - dist_clip_coco.py - INFO: Iter: 43200; Elasped: 17:05:52; ETA: 14:33:53; LR: 9.200e-06;, pseudo_seg_loss: 0.3958, attn_loss: 0.2857, pseudo_seg_mAcc: 0.9514
+2025-07-12 05:32:55,569 - dist_clip_coco.py - INFO: Iter: 43400; Elasped: 17:08:10; ETA: 14:27:04; LR: 9.150e-06;, pseudo_seg_loss: 0.3852, attn_loss: 0.2812, pseudo_seg_mAcc: 0.9610
+2025-07-12 05:35:14,270 - dist_clip_coco.py - INFO: Iter: 43600; Elasped: 17:10:29; ETA: 14:20:18; LR: 9.100e-06;, pseudo_seg_loss: 0.3548, attn_loss: 0.2824, pseudo_seg_mAcc: 0.9490
+2025-07-12 05:37:35,098 - dist_clip_coco.py - INFO: Iter: 43800; Elasped: 17:12:50; ETA: 14:13:37; LR: 9.050e-06;, pseudo_seg_loss: 0.3920, attn_loss: 0.2821, pseudo_seg_mAcc: 0.9355
+2025-07-12 05:39:56,301 - dist_clip_coco.py - INFO: Iter: 44000; Elasped: 17:15:11; ETA: 14:06:58; LR: 9.000e-06;, pseudo_seg_loss: 0.3504, attn_loss: 0.2772, pseudo_seg_mAcc: 0.9643
+2025-07-12 05:42:18,885 - dist_clip_coco.py - INFO: Iter: 44200; Elasped: 17:17:33; ETA: 14:00:22; LR: 8.950e-06;, pseudo_seg_loss: 0.3728, attn_loss: 0.2828, pseudo_seg_mAcc: 0.8977
+2025-07-12 05:44:40,166 - dist_clip_coco.py - INFO: Iter: 44400; Elasped: 17:19:55; ETA: 13:53:48; LR: 8.900e-06;, pseudo_seg_loss: 0.3865, attn_loss: 0.2862, pseudo_seg_mAcc: 0.9371
+2025-07-12 05:46:58,892 - dist_clip_coco.py - INFO: Iter: 44600; Elasped: 17:22:13; ETA: 13:47:13; LR: 8.850e-06;, pseudo_seg_loss: 0.3797, attn_loss: 0.2824, pseudo_seg_mAcc: 0.9448
+2025-07-12 05:49:18,158 - dist_clip_coco.py - INFO: Iter: 44800; Elasped: 17:24:33; ETA: 13:40:43; LR: 8.800e-06;, pseudo_seg_loss: 0.3850, attn_loss: 0.2843, pseudo_seg_mAcc: 0.8664
+2025-07-12 05:51:38,278 - dist_clip_coco.py - INFO: Iter: 45000; Elasped: 17:26:53; ETA: 13:34:14; LR: 8.750e-06;, pseudo_seg_loss: 0.3980, attn_loss: 0.2809, pseudo_seg_mAcc: 0.9352
+2025-07-12 05:53:57,331 - dist_clip_coco.py - INFO: Iter: 45200; Elasped: 17:29:12; ETA: 13:27:47; LR: 8.700e-06;, pseudo_seg_loss: 0.3614, attn_loss: 0.2839, pseudo_seg_mAcc: 0.9410
+2025-07-12 05:56:15,998 - dist_clip_coco.py - INFO: Iter: 45400; Elasped: 17:31:30; ETA: 13:21:21; LR: 8.650e-06;, pseudo_seg_loss: 0.3992, attn_loss: 0.2791, pseudo_seg_mAcc: 0.8243
+2025-07-12 05:58:35,856 - dist_clip_coco.py - INFO: Iter: 45600; Elasped: 17:33:50; ETA: 13:14:59; LR: 8.600e-06;, pseudo_seg_loss: 0.3958, attn_loss: 0.2773, pseudo_seg_mAcc: 0.9298
+2025-07-12 06:00:58,118 - dist_clip_coco.py - INFO: Iter: 45800; Elasped: 17:36:13; ETA: 13:08:42; LR: 8.550e-06;, pseudo_seg_loss: 0.3608, attn_loss: 0.2803, pseudo_seg_mAcc: 0.9158
+2025-07-12 06:03:15,757 - dist_clip_coco.py - INFO: Iter: 46000; Elasped: 17:38:30; ETA: 13:02:22; LR: 8.500e-06;, pseudo_seg_loss: 0.3857, attn_loss: 0.2798, pseudo_seg_mAcc: 0.8727
+2025-07-12 06:05:34,485 - dist_clip_coco.py - INFO: Iter: 46200; Elasped: 17:40:49; ETA: 12:56:05; LR: 8.450e-06;, pseudo_seg_loss: 0.3680, attn_loss: 0.2855, pseudo_seg_mAcc: 0.8526
+2025-07-12 06:07:55,730 - dist_clip_coco.py - INFO: Iter: 46400; Elasped: 17:43:10; ETA: 12:49:52; LR: 8.400e-06;, pseudo_seg_loss: 0.4041, attn_loss: 0.2842, pseudo_seg_mAcc: 0.9330
+2025-07-12 06:10:17,366 - dist_clip_coco.py - INFO: Iter: 46600; Elasped: 17:45:32; ETA: 12:43:42; LR: 8.350e-06;, pseudo_seg_loss: 0.3962, attn_loss: 0.2848, pseudo_seg_mAcc: 0.8837
+2025-07-12 06:12:38,047 - dist_clip_coco.py - INFO: Iter: 46800; Elasped: 17:47:52; ETA: 12:37:32; LR: 8.300e-06;, pseudo_seg_loss: 0.4226, attn_loss: 0.2783, pseudo_seg_mAcc: 0.9412
+2025-07-12 06:14:57,053 - dist_clip_coco.py - INFO: Iter: 47000; Elasped: 17:50:11; ETA: 12:31:24; LR: 8.250e-06;, pseudo_seg_loss: 0.3835, attn_loss: 0.2789, pseudo_seg_mAcc: 0.8466
+2025-07-12 06:17:13,182 - dist_clip_coco.py - INFO: Iter: 47200; Elasped: 17:52:28; ETA: 12:25:16; LR: 8.200e-06;, pseudo_seg_loss: 0.3735, attn_loss: 0.2739, pseudo_seg_mAcc: 0.8641
+2025-07-12 06:19:36,790 - dist_clip_coco.py - INFO: Iter: 47400; Elasped: 17:54:51; ETA: 12:19:14; LR: 8.150e-06;, pseudo_seg_loss: 0.3936, attn_loss: 0.2798, pseudo_seg_mAcc: 0.9189
+2025-07-12 06:21:55,914 - dist_clip_coco.py - INFO: Iter: 47600; Elasped: 17:57:10; ETA: 12:13:11; LR: 8.100e-06;, pseudo_seg_loss: 0.4002, attn_loss: 0.2782, pseudo_seg_mAcc: 0.9557
+2025-07-12 06:24:17,632 - dist_clip_coco.py - INFO: Iter: 47800; Elasped: 17:59:32; ETA: 12:07:13; LR: 8.050e-06;, pseudo_seg_loss: 0.3853, attn_loss: 0.2847, pseudo_seg_mAcc: 0.8544
+2025-07-12 06:26:37,209 - dist_clip_coco.py - INFO: Iter: 48000; Elasped: 18:01:52; ETA: 12:01:14; LR: 8.000e-06;, pseudo_seg_loss: 0.3315, attn_loss: 0.2724, pseudo_seg_mAcc: 0.9307
+2025-07-12 06:28:56,035 - dist_clip_coco.py - INFO: Iter: 48200; Elasped: 18:04:10; ETA: 11:55:16; LR: 7.950e-06;, pseudo_seg_loss: 0.3222, attn_loss: 0.2739, pseudo_seg_mAcc: 0.9402
+2025-07-12 06:31:15,219 - dist_clip_coco.py - INFO: Iter: 48400; Elasped: 18:06:30; ETA: 11:49:22; LR: 7.900e-06;, pseudo_seg_loss: 0.3445, attn_loss: 0.2805, pseudo_seg_mAcc: 0.8995
+2025-07-12 06:33:37,129 - dist_clip_coco.py - INFO: Iter: 48600; Elasped: 18:08:52; ETA: 11:43:30; LR: 7.850e-06;, pseudo_seg_loss: 0.3785, attn_loss: 0.2766, pseudo_seg_mAcc: 0.8476
+2025-07-12 06:35:57,153 - dist_clip_coco.py - INFO: Iter: 48800; Elasped: 18:11:12; ETA: 11:37:39; LR: 7.800e-06;, pseudo_seg_loss: 0.3170, attn_loss: 0.2736, pseudo_seg_mAcc: 0.9642
+2025-07-12 06:38:16,643 - dist_clip_coco.py - INFO: Iter: 49000; Elasped: 18:13:31; ETA: 11:31:49; LR: 7.750e-06;, pseudo_seg_loss: 0.3742, attn_loss: 0.2783, pseudo_seg_mAcc: 0.7971
+2025-07-12 06:40:36,636 - dist_clip_coco.py - INFO: Iter: 49200; Elasped: 18:15:51; ETA: 11:26:01; LR: 7.700e-06;, pseudo_seg_loss: 0.3909, attn_loss: 0.2804, pseudo_seg_mAcc: 0.9208
+2025-07-12 06:42:56,405 - dist_clip_coco.py - INFO: Iter: 49400; Elasped: 18:18:11; ETA: 11:20:15; LR: 7.650e-06;, pseudo_seg_loss: 0.3819, attn_loss: 0.2716, pseudo_seg_mAcc: 0.9497
+2025-07-12 06:45:14,868 - dist_clip_coco.py - INFO: Iter: 49600; Elasped: 18:20:29; ETA: 11:14:29; LR: 7.600e-06;, pseudo_seg_loss: 0.3797, attn_loss: 0.2737, pseudo_seg_mAcc: 0.8895
+2025-07-12 06:47:36,048 - dist_clip_coco.py - INFO: Iter: 49800; Elasped: 18:22:50; ETA: 11:08:47; LR: 7.550e-06;, pseudo_seg_loss: 0.4068, attn_loss: 0.2828, pseudo_seg_mAcc: 0.8579
+2025-07-12 06:49:56,749 - dist_clip_coco.py - INFO: Iter: 50000; Elasped: 18:25:11; ETA: 11:03:06; LR: 7.500e-06;, pseudo_seg_loss: 0.3884, attn_loss: 0.2757, pseudo_seg_mAcc: 0.8528
+2025-07-12 06:49:56,749 - dist_clip_coco.py - INFO: Validating...
+2025-07-12 09:01:07,921 - dist_clip_coco.py - INFO: cams score:
+2025-07-12 09:01:07,921 - dist_clip_coco.py - INFO: {'pAcc': 0.8206558116348125, 'mAcc': 0.6895596547638432, 'miou': 0.45844475675381346, 'iou': {0: 0.8081926951044557, 1: 0.4384395652675211, 2: 0.46922000344307624, 3: 0.4496476426739318, 4: 0.6886378306693003, 5: 0.684640476849845, 6: 0.7500365923798791, 7: 0.7266402400863143, 8: 0.528087851890712, 9: 0.4465440925816095, 10: 0.14994053280209135, 11: 0.6313593812600978, 12: 0.6173688655860016, 13: 0.5915642556553612, 14: 0.35861865344641874, 15: 0.5004768018511315, 16: 0.8105123152526972, 17: 0.7436072764501593, 18: 0.7110908132869604, 19: 0.7115187316289524, 20: 0.7597062404826539, 21: 0.810517009423541, 22: 0.8512969074731578, 23: 0.6274996498467827, 24: 0.6451581828933426, 25: 0.25236359305814604, 26: 0.6086301518526017, 27: 0.1980876856219489, 28: 0.1686490428332574, 29: 0.5648577785422001, 30: 0.5776545578044763, 31: 0.15893648811544595, 32: 0.16706819735677386, 33: 0.04765754335532676, 34: 0.38523974455137977, 35: 0.11846029172023258, 36: 0.20690147676952708, 37: 0.2038041630628303, 38: 0.3918289877223926, 39: 0.1854282630917317, 40: 0.25051378358668486, 41: 0.29960741986016126, 42: 0.2903965011782592, 43: 0.08861728162189633, 44: 0.08128823571467135, 45: 0.07235450416791564, 46: 0.26278950035776594, 47: 0.6425529433851523, 48: 0.5480945606296825, 49: 0.5812300777123757, 50: 0.5923070558893027, 51: 0.4398393551975173, 52: 0.2961313252943664, 53: 0.6227407591880831, 54: 0.6967524235734691, 55: 0.7105545664758193, 56: 0.591327297947913, 57: 0.28956684673459476, 58: 0.5664629359532594, 59: 0.3289025097695469, 60: 0.6005302676939238, 61: 0.41238223881615166, 62: 0.6826521438136397, 63: 0.48464623847022825, 64: 0.5659696907675533, 65: 0.18541453216985115, 66: 0.3917277730919863, 67: 0.5339117919232873, 68: 0.3805414084309222, 69: 0.43194098410048937, 70: 0.4120126817741048, 71: 0.4186855487776121, 72: 0.33012177166074447, 73: 0.4957803534886615, 74: 0.3681868321686008, 75: 0.39650872325119957, 76: 0.36457668023959644, 77: 0.3866464139022723, 78: 0.7039150824702389, 79: 0.355362481666328, 80: 0.2345912003988045}}
+2025-07-12 09:01:07,921 - dist_clip_coco.py - INFO: segs score:
+2025-07-12 09:01:07,921 - dist_clip_coco.py - INFO: {'pAcc': 0.8521785175896374, 'mAcc': 0.6747646370978657, 'miou': 0.5193055297308156, 'iou': {0: 0.8413703888864954, 1: 0.5563324186429524, 2: 0.5799634970799943, 3: 0.5479949772030281, 4: 0.7296086516781939, 5: 0.7380140729675826, 6: 0.7782923528101655, 7: 0.7775516554691027, 8: 0.5521082326496597, 9: 0.5517369578518561, 10: 0.4864116448204163, 11: 0.7813573017995469, 12: 0.6443250712705187, 13: 0.7207971613564361, 14: 0.43751703472301295, 15: 0.6875078717248221, 16: 0.7747258755145169, 17: 0.7717893969929865, 18: 0.7160830443347999, 19: 0.7495707418011934, 20: 0.7709526859840721, 21: 0.814360935628919, 22: 0.8511450824988595, 23: 0.7346428846497999, 24: 0.7397687864116426, 25: 0.3624804455602784, 26: 0.7264972295297638, 27: 0.27889833380808876, 28: 0.16153263443360297, 29: 0.6186113104014118, 30: 0.669411960118821, 31: 0.2091106507558323, 32: 0.3891865709442181, 33: 0.46914079295206496, 34: 0.5375632997084323, 35: 0.203041248825616, 36: 0.4207945317895455, 37: 0.2544587396831003, 38: 0.5515786274815773, 39: 0.22600839957911165, 40: 0.37077570329424187, 41: 0.36421077873029195, 42: 0.33241404793058144, 43: 0.2530134533855063, 44: 0.29136277048451314, 45: 0.17076983226538262, 46: 0.20179742682015203, 47: 0.5826451508799744, 48: 0.5179227303663483, 49: 0.4089808891511735, 50: 0.6181770707572608, 51: 0.5685507421491388, 52: 0.4531706065392752, 53: 0.5788327760795696, 54: 0.5709750530150635, 55: 0.5988411538695573, 56: 0.49828232581580434, 57: 0.3839528621099582, 58: 0.531716646734995, 59: 0.23628685797748084, 60: 0.6027995033174146, 61: 0.327244338198919, 62: 0.7183354492282613, 63: 0.4981309351340166, 64: 0.5831468428449341, 65: 0.27806282356233386, 66: 0.5106569308370316, 67: 0.5911202053127574, 68: 0.5808918386258997, 69: 0.5021395383184295, 70: 0.3839307449951869, 71: 0.3532426739392267, 72: 0.41662235589698043, 73: 0.5702830330456636, 74: 0.3977271219066654, 75: 0.5952040973810749, 76: 0.3386333365368576, 77: 0.5001935590362463, 78: 0.6956332669069116, 79: 0.3378066693655587, 80: 0.3370202651273888}}
+2025-07-12 09:03:27,947 - dist_clip_coco.py - INFO: Iter: 50200; Elasped: 20:38:42; ETA: 12:15:19; LR: 7.450e-06;, pseudo_seg_loss: 0.4135, attn_loss: 0.2759, pseudo_seg_mAcc: 0.8193
+2025-07-12 09:05:46,994 - dist_clip_coco.py - INFO: Iter: 50400; Elasped: 20:41:01; ETA: 12:08:51; LR: 7.400e-06;, pseudo_seg_loss: 0.3804, attn_loss: 0.2727, pseudo_seg_mAcc: 0.9545
+2025-07-12 09:08:07,471 - dist_clip_coco.py - INFO: Iter: 50600; Elasped: 20:43:22; ETA: 12:02:25; LR: 7.350e-06;, pseudo_seg_loss: 0.3866, attn_loss: 0.2776, pseudo_seg_mAcc: 0.9201
+2025-07-12 09:10:26,719 - dist_clip_coco.py - INFO: Iter: 50800; Elasped: 20:45:41; ETA: 11:56:01; LR: 7.300e-06;, pseudo_seg_loss: 0.3462, attn_loss: 0.2742, pseudo_seg_mAcc: 0.9236
+2025-07-12 09:12:49,724 - dist_clip_coco.py - INFO: Iter: 51000; Elasped: 20:48:04; ETA: 11:49:41; LR: 7.250e-06;, pseudo_seg_loss: 0.3893, attn_loss: 0.2792, pseudo_seg_mAcc: 0.9003
+2025-07-12 09:15:09,045 - dist_clip_coco.py - INFO: Iter: 51200; Elasped: 20:50:23; ETA: 11:43:20; LR: 7.200e-06;, pseudo_seg_loss: 0.3700, attn_loss: 0.2798, pseudo_seg_mAcc: 0.9093
+2025-07-12 09:17:45,094 - dist_clip_coco.py - INFO: Iter: 51400; Elasped: 20:53:00; ETA: 11:37:11; LR: 7.150e-06;, pseudo_seg_loss: 0.3793, attn_loss: 0.2775, pseudo_seg_mAcc: 0.9071
+2025-07-12 09:20:06,666 - dist_clip_coco.py - INFO: Iter: 51600; Elasped: 20:55:21; ETA: 11:30:55; LR: 7.100e-06;, pseudo_seg_loss: 0.3630, attn_loss: 0.2701, pseudo_seg_mAcc: 0.9492
+2025-07-12 09:22:25,464 - dist_clip_coco.py - INFO: Iter: 51800; Elasped: 20:57:40; ETA: 11:24:40; LR: 7.050e-06;, pseudo_seg_loss: 0.3905, attn_loss: 0.2800, pseudo_seg_mAcc: 0.8729
+2025-07-12 09:24:45,702 - dist_clip_coco.py - INFO: Iter: 52000; Elasped: 21:00:00; ETA: 11:18:27; LR: 7.000e-06;, pseudo_seg_loss: 0.3859, attn_loss: 0.2702, pseudo_seg_mAcc: 0.9487
+2025-07-12 09:27:06,085 - dist_clip_coco.py - INFO: Iter: 52200; Elasped: 21:02:21; ETA: 11:12:17; LR: 6.950e-06;, pseudo_seg_loss: 0.3596, attn_loss: 0.2775, pseudo_seg_mAcc: 0.9112
+2025-07-12 09:29:24,442 - dist_clip_coco.py - INFO: Iter: 52400; Elasped: 21:04:39; ETA: 11:06:06; LR: 6.900e-06;, pseudo_seg_loss: 0.3596, attn_loss: 0.2719, pseudo_seg_mAcc: 0.9405
+2025-07-12 09:31:45,229 - dist_clip_coco.py - INFO: Iter: 52600; Elasped: 21:07:00; ETA: 10:59:59; LR: 6.850e-06;, pseudo_seg_loss: 0.3546, attn_loss: 0.2769, pseudo_seg_mAcc: 0.8409
+2025-07-12 09:34:07,128 - dist_clip_coco.py - INFO: Iter: 52800; Elasped: 21:09:22; ETA: 10:53:54; LR: 6.800e-06;, pseudo_seg_loss: 0.3890, attn_loss: 0.2762, pseudo_seg_mAcc: 0.8849
+2025-07-12 09:36:26,821 - dist_clip_coco.py - INFO: Iter: 53000; Elasped: 21:11:41; ETA: 10:47:50; LR: 6.750e-06;, pseudo_seg_loss: 0.3943, attn_loss: 0.2776, pseudo_seg_mAcc: 0.7879
+2025-07-12 09:38:45,670 - dist_clip_coco.py - INFO: Iter: 53200; Elasped: 21:14:00; ETA: 10:41:47; LR: 6.700e-06;, pseudo_seg_loss: 0.3776, attn_loss: 0.2757, pseudo_seg_mAcc: 0.9221
+2025-07-12 09:41:05,214 - dist_clip_coco.py - INFO: Iter: 53400; Elasped: 21:16:20; ETA: 10:35:46; LR: 6.650e-06;, pseudo_seg_loss: 0.3674, attn_loss: 0.2730, pseudo_seg_mAcc: 0.7159
+2025-07-12 09:43:24,822 - dist_clip_coco.py - INFO: Iter: 53600; Elasped: 21:18:39; ETA: 10:29:46; LR: 6.600e-06;, pseudo_seg_loss: 0.3623, attn_loss: 0.2661, pseudo_seg_mAcc: 0.9572
+2025-07-12 09:45:45,378 - dist_clip_coco.py - INFO: Iter: 53800; Elasped: 21:21:00; ETA: 10:23:49; LR: 6.550e-06;, pseudo_seg_loss: 0.3792, attn_loss: 0.2750, pseudo_seg_mAcc: 0.8566
+2025-07-12 09:48:07,272 - dist_clip_coco.py - INFO: Iter: 54000; Elasped: 21:23:22; ETA: 10:17:55; LR: 6.500e-06;, pseudo_seg_loss: 0.4068, attn_loss: 0.2759, pseudo_seg_mAcc: 0.8076
+2025-07-12 09:50:27,636 - dist_clip_coco.py - INFO: Iter: 54200; Elasped: 21:25:42; ETA: 10:12:00; LR: 6.450e-06;, pseudo_seg_loss: 0.4243, attn_loss: 0.2745, pseudo_seg_mAcc: 0.8966
+2025-07-12 09:52:48,442 - dist_clip_coco.py - INFO: Iter: 54400; Elasped: 21:28:03; ETA: 10:06:08; LR: 6.400e-06;, pseudo_seg_loss: 0.3703, attn_loss: 0.2789, pseudo_seg_mAcc: 0.9225
+2025-07-12 09:55:07,376 - dist_clip_coco.py - INFO: Iter: 54600; Elasped: 21:30:22; ETA: 10:00:16; LR: 6.350e-06;, pseudo_seg_loss: 0.3722, attn_loss: 0.2785, pseudo_seg_mAcc: 0.9315
+2025-07-12 09:57:26,988 - dist_clip_coco.py - INFO: Iter: 54800; Elasped: 21:32:41; ETA: 9:54:26; LR: 6.300e-06;, pseudo_seg_loss: 0.3707, attn_loss: 0.2702, pseudo_seg_mAcc: 0.7568
+2025-07-12 09:59:47,412 - dist_clip_coco.py - INFO: Iter: 55000; Elasped: 21:35:02; ETA: 9:48:39; LR: 6.250e-06;, pseudo_seg_loss: 0.4040, attn_loss: 0.2764, pseudo_seg_mAcc: 0.9238
+2025-07-12 10:02:09,097 - dist_clip_coco.py - INFO: Iter: 55200; Elasped: 21:37:24; ETA: 9:42:53; LR: 6.200e-06;, pseudo_seg_loss: 0.3783, attn_loss: 0.2742, pseudo_seg_mAcc: 0.9027
+2025-07-12 10:04:30,638 - dist_clip_coco.py - INFO: Iter: 55400; Elasped: 21:39:45; ETA: 9:37:08; LR: 6.150e-06;, pseudo_seg_loss: 0.3696, attn_loss: 0.2797, pseudo_seg_mAcc: 0.7795
+2025-07-12 10:06:50,706 - dist_clip_coco.py - INFO: Iter: 55600; Elasped: 21:42:05; ETA: 9:31:25; LR: 6.100e-06;, pseudo_seg_loss: 0.3542, attn_loss: 0.2817, pseudo_seg_mAcc: 0.9378
+2025-07-12 10:09:08,946 - dist_clip_coco.py - INFO: Iter: 55800; Elasped: 21:44:23; ETA: 9:25:42; LR: 6.050e-06;, pseudo_seg_loss: 0.3844, attn_loss: 0.2699, pseudo_seg_mAcc: 0.8247
+2025-07-12 10:11:29,114 - dist_clip_coco.py - INFO: Iter: 56000; Elasped: 21:46:44; ETA: 9:20:01; LR: 6.000e-06;, pseudo_seg_loss: 0.4115, attn_loss: 0.2753, pseudo_seg_mAcc: 0.9412
+2025-07-12 10:13:47,508 - dist_clip_coco.py - INFO: Iter: 56200; Elasped: 21:49:02; ETA: 9:14:21; LR: 5.950e-06;, pseudo_seg_loss: 0.3610, attn_loss: 0.2785, pseudo_seg_mAcc: 0.9494
+2025-07-12 10:16:05,717 - dist_clip_coco.py - INFO: Iter: 56400; Elasped: 21:51:20; ETA: 9:08:42; LR: 5.900e-06;, pseudo_seg_loss: 0.3756, attn_loss: 0.2742, pseudo_seg_mAcc: 0.9285
+2025-07-12 10:18:26,515 - dist_clip_coco.py - INFO: Iter: 56600; Elasped: 21:53:41; ETA: 9:03:06; LR: 5.850e-06;, pseudo_seg_loss: 0.3470, attn_loss: 0.2753, pseudo_seg_mAcc: 0.9197
+2025-07-12 10:20:44,653 - dist_clip_coco.py - INFO: Iter: 56800; Elasped: 21:55:59; ETA: 8:57:30; LR: 5.800e-06;, pseudo_seg_loss: 0.3724, attn_loss: 0.2755, pseudo_seg_mAcc: 0.7948
+2025-07-12 10:23:05,991 - dist_clip_coco.py - INFO: Iter: 57000; Elasped: 21:58:20; ETA: 8:51:57; LR: 5.750e-06;, pseudo_seg_loss: 0.3808, attn_loss: 0.2729, pseudo_seg_mAcc: 0.8284
+2025-07-12 10:25:26,149 - dist_clip_coco.py - INFO: Iter: 57200; Elasped: 22:00:41; ETA: 8:46:25; LR: 5.700e-06;, pseudo_seg_loss: 0.3648, attn_loss: 0.2681, pseudo_seg_mAcc: 0.9399
+2025-07-12 10:27:46,925 - dist_clip_coco.py - INFO: Iter: 57400; Elasped: 22:03:01; ETA: 8:40:54; LR: 5.650e-06;, pseudo_seg_loss: 0.3862, attn_loss: 0.2715, pseudo_seg_mAcc: 0.8292
+2025-07-12 10:30:07,797 - dist_clip_coco.py - INFO: Iter: 57600; Elasped: 22:05:22; ETA: 8:35:25; LR: 5.600e-06;, pseudo_seg_loss: 0.3645, attn_loss: 0.2760, pseudo_seg_mAcc: 0.8999
+2025-07-12 10:32:26,669 - dist_clip_coco.py - INFO: Iter: 57800; Elasped: 22:07:41; ETA: 8:29:56; LR: 5.550e-06;, pseudo_seg_loss: 0.3600, attn_loss: 0.2718, pseudo_seg_mAcc: 0.9653
+2025-07-12 10:34:46,006 - dist_clip_coco.py - INFO: Iter: 58000; Elasped: 22:10:00; ETA: 8:24:28; LR: 5.500e-06;, pseudo_seg_loss: 0.3438, attn_loss: 0.2713, pseudo_seg_mAcc: 0.9272
+2025-07-12 10:37:07,411 - dist_clip_coco.py - INFO: Iter: 58200; Elasped: 22:12:22; ETA: 8:19:03; LR: 5.450e-06;, pseudo_seg_loss: 0.4053, attn_loss: 0.2779, pseudo_seg_mAcc: 0.9411
+2025-07-12 10:39:26,834 - dist_clip_coco.py - INFO: Iter: 58400; Elasped: 22:14:41; ETA: 8:13:39; LR: 5.400e-06;, pseudo_seg_loss: 0.3820, attn_loss: 0.2770, pseudo_seg_mAcc: 0.9260
+2025-07-12 10:41:43,567 - dist_clip_coco.py - INFO: Iter: 58600; Elasped: 22:16:58; ETA: 8:08:14; LR: 5.350e-06;, pseudo_seg_loss: 0.3448, attn_loss: 0.2657, pseudo_seg_mAcc: 0.8607
+2025-07-12 10:44:06,574 - dist_clip_coco.py - INFO: Iter: 58800; Elasped: 22:19:21; ETA: 8:02:53; LR: 5.300e-06;, pseudo_seg_loss: 0.3914, attn_loss: 0.2735, pseudo_seg_mAcc: 0.8639
+2025-07-12 10:46:24,349 - dist_clip_coco.py - INFO: Iter: 59000; Elasped: 22:21:39; ETA: 7:57:32; LR: 5.250e-06;, pseudo_seg_loss: 0.3861, attn_loss: 0.2709, pseudo_seg_mAcc: 0.9654
+2025-07-12 10:48:44,932 - dist_clip_coco.py - INFO: Iter: 59200; Elasped: 22:23:59; ETA: 7:52:12; LR: 5.200e-06;, pseudo_seg_loss: 0.3996, attn_loss: 0.2740, pseudo_seg_mAcc: 0.9520
+2025-07-12 10:51:04,223 - dist_clip_coco.py - INFO: Iter: 59400; Elasped: 22:26:19; ETA: 7:46:54; LR: 5.150e-06;, pseudo_seg_loss: 0.3886, attn_loss: 0.2729, pseudo_seg_mAcc: 0.8663
+2025-07-12 10:53:24,393 - dist_clip_coco.py - INFO: Iter: 59600; Elasped: 22:28:39; ETA: 7:41:37; LR: 5.100e-06;, pseudo_seg_loss: 0.3333, attn_loss: 0.2739, pseudo_seg_mAcc: 0.8791
+2025-07-12 10:55:45,972 - dist_clip_coco.py - INFO: Iter: 59800; Elasped: 22:31:00; ETA: 7:36:21; LR: 5.050e-06;, pseudo_seg_loss: 0.3565, attn_loss: 0.2634, pseudo_seg_mAcc: 0.9305
+2025-07-12 10:58:05,812 - dist_clip_coco.py - INFO: Iter: 60000; Elasped: 22:33:20; ETA: 7:31:06; LR: 5.000e-06;, pseudo_seg_loss: 0.3508, attn_loss: 0.2675, pseudo_seg_mAcc: 0.7643
+2025-07-12 10:58:05,812 - dist_clip_coco.py - INFO: Validating...
+2025-07-12 13:09:06,822 - dist_clip_coco.py - INFO: cams score:
+2025-07-12 13:09:06,822 - dist_clip_coco.py - INFO: {'pAcc': 0.8206576758061531, 'mAcc': 0.6774330837230621, 'miou': 0.45528231453107926, 'iou': {0: 0.8077729186223859, 1: 0.43240677830586893, 2: 0.4550933453047113, 3: 0.4563269708337866, 4: 0.6849578039067831, 5: 0.6865026458797929, 6: 0.7512848738617844, 7: 0.7216119409290157, 8: 0.5278689346609329, 9: 0.44246551517554306, 10: 0.15761388225025458, 11: 0.6328493760401718, 12: 0.6283582388816944, 13: 0.6292883425771414, 14: 0.351900533665351, 15: 0.520572957445077, 16: 0.8083238179377847, 17: 0.746942812336598, 18: 0.7131794907714645, 19: 0.6959080730056688, 20: 0.7405170708899264, 21: 0.8071502757354956, 22: 0.8369108267433235, 23: 0.629293148596953, 24: 0.6429127114680442, 25: 0.26146607180839454, 26: 0.6215105355203475, 27: 0.21395792731078053, 28: 0.17041523036509018, 29: 0.566156584539959, 30: 0.5592814819288044, 31: 0.11012388708827024, 32: 0.164832521938523, 33: 0.049235781421965746, 34: 0.3811519560796158, 35: 0.11643899347056776, 36: 0.19320595097436125, 37: 0.16314200096635156, 38: 0.3347583632781783, 39: 0.19112505438852992, 40: 0.2565343383263488, 41: 0.29716723312792637, 42: 0.2924146713622229, 43: 0.08233238879143616, 44: 0.08787658197646239, 45: 0.07056680072666936, 46: 0.2622821684128382, 47: 0.6441638430378055, 48: 0.5545484582666111, 49: 0.57829172524968, 50: 0.5867830878738299, 51: 0.4722133871658726, 52: 0.31279248996834597, 53: 0.6206350485952332, 54: 0.6438784387607902, 55: 0.6935730283584438, 56: 0.5818445421553089, 57: 0.29564571954926433, 58: 0.5645311645016756, 59: 0.31693158887376366, 60: 0.5947704307160006, 61: 0.41784249269479257, 62: 0.6870187829759662, 63: 0.4718853791138068, 64: 0.5492766989676878, 65: 0.17192529208402654, 66: 0.37026456119448037, 67: 0.532174152357288, 68: 0.3838225463930385, 69: 0.4425683734714239, 70: 0.4197553427604404, 71: 0.3644236925437357, 72: 0.33544983517428706, 73: 0.5274703853785236, 74: 0.3582845874564353, 75: 0.42145316099150587, 76: 0.35558492737734176, 77: 0.38823149630147663, 78: 0.685837188844214, 79: 0.3827682782475303, 80: 0.19723753998758986}}
+2025-07-12 13:09:06,822 - dist_clip_coco.py - INFO: segs score:
+2025-07-12 13:09:06,822 - dist_clip_coco.py - INFO: {'pAcc': 0.851336351053707, 'mAcc': 0.6596638364664336, 'miou': 0.5148943026890983, 'iou': {0: 0.8404859551936972, 1: 0.5509510111352627, 2: 0.5620792091864899, 3: 0.512764442003441, 4: 0.7180557989881255, 5: 0.7445860838806595, 6: 0.7780912776532034, 7: 0.7749055357445395, 8: 0.5547515639740033, 9: 0.5425254693346772, 10: 0.5616886604653701, 11: 0.8010748843728261, 12: 0.7013734475224156, 13: 0.7254455417438356, 14: 0.5012635961287745, 15: 0.6892043363620936, 16: 0.7737750035228912, 17: 0.7641322783542508, 18: 0.7145221675215291, 19: 0.7418259519840498, 20: 0.7768305942815209, 21: 0.8170958451991558, 22: 0.8486348719817455, 23: 0.753567423583753, 24: 0.7395633003142176, 25: 0.31090161004249117, 26: 0.7474077613387233, 27: 0.29847138762630016, 28: 0.17491347864284051, 29: 0.6098296106190764, 30: 0.6979532865984996, 31: 0.148970414814841, 32: 0.4371868389367092, 33: 0.46887522008286664, 34: 0.5611130578075153, 35: 0.13383728370984566, 36: 0.34517994674889274, 37: 0.23478786142740982, 38: 0.378373213067882, 39: 0.2365775387098121, 40: 0.36181094071159814, 41: 0.3587873535508887, 42: 0.34323827833596626, 43: 0.2369243233211512, 44: 0.3187344549354764, 45: 0.16768550738267657, 46: 0.2341466558221002, 47: 0.6456109881986601, 48: 0.5628290422118393, 49: 0.39487434689998896, 50: 0.6237083643544659, 51: 0.569595508660801, 52: 0.3804348326258505, 53: 0.5472708842550743, 54: 0.5182463319096828, 55: 0.5738699752402735, 56: 0.4735933936957718, 57: 0.36681593096407994, 58: 0.5011450292372259, 59: 0.25433161029593243, 60: 0.6090853721554418, 61: 0.3013157903365981, 62: 0.7296398134472319, 63: 0.4661478760390698, 64: 0.5163518772283616, 65: 0.3457382162826494, 66: 0.5072020128823141, 67: 0.5546580608162393, 68: 0.5784110954197375, 69: 0.5253127294313821, 70: 0.40655101048793335, 71: 0.18441239145562507, 72: 0.4391137652944014, 73: 0.5792489607253041, 74: 0.37728432103920106, 75: 0.6194650155883494, 76: 0.3305332816861839, 77: 0.5082636472258135, 78: 0.6685502968173981, 79: 0.41537163171416625, 80: 0.3365548385278192}}
+2025-07-12 13:11:26,084 - dist_clip_coco.py - INFO: Iter: 60200; Elasped: 1 day, 0:46:41; ETA: 8:08:58; LR: 4.950e-06;, pseudo_seg_loss: 0.3597, attn_loss: 0.2717, pseudo_seg_mAcc: 0.9152
+2025-07-12 13:13:47,776 - dist_clip_coco.py - INFO: Iter: 60400; Elasped: 1 day, 0:49:02; ETA: 8:03:11; LR: 4.900e-06;, pseudo_seg_loss: 0.3438, attn_loss: 0.2683, pseudo_seg_mAcc: 0.8927
+2025-07-12 13:16:08,615 - dist_clip_coco.py - INFO: Iter: 60600; Elasped: 1 day, 0:51:23; ETA: 7:57:26; LR: 4.850e-06;, pseudo_seg_loss: 0.3725, attn_loss: 0.2780, pseudo_seg_mAcc: 0.9567
+2025-07-12 13:18:27,325 - dist_clip_coco.py - INFO: Iter: 60800; Elasped: 1 day, 0:53:42; ETA: 7:51:41; LR: 4.800e-06;, pseudo_seg_loss: 0.3795, attn_loss: 0.2710, pseudo_seg_mAcc: 0.9585
+2025-07-12 13:20:46,010 - dist_clip_coco.py - INFO: Iter: 61000; Elasped: 1 day, 0:56:00; ETA: 7:45:58; LR: 4.750e-06;, pseudo_seg_loss: 0.3740, attn_loss: 0.2678, pseudo_seg_mAcc: 0.8412
+2025-07-12 13:23:05,831 - dist_clip_coco.py - INFO: Iter: 61200; Elasped: 1 day, 0:58:20; ETA: 7:40:16; LR: 4.700e-06;, pseudo_seg_loss: 0.3535, attn_loss: 0.2702, pseudo_seg_mAcc: 0.8278
+2025-07-12 13:25:27,117 - dist_clip_coco.py - INFO: Iter: 61400; Elasped: 1 day, 1:00:42; ETA: 7:34:36; LR: 4.650e-06;, pseudo_seg_loss: 0.3510, attn_loss: 0.2742, pseudo_seg_mAcc: 0.9293
+2025-07-12 13:28:03,461 - dist_clip_coco.py - INFO: Iter: 61600; Elasped: 1 day, 1:03:18; ETA: 7:29:02; LR: 4.600e-06;, pseudo_seg_loss: 0.3601, attn_loss: 0.2684, pseudo_seg_mAcc: 0.9374
+2025-07-12 13:30:23,558 - dist_clip_coco.py - INFO: Iter: 61800; Elasped: 1 day, 1:05:38; ETA: 7:23:24; LR: 4.550e-06;, pseudo_seg_loss: 0.3538, attn_loss: 0.2686, pseudo_seg_mAcc: 0.7728
+2025-07-12 13:32:43,157 - dist_clip_coco.py - INFO: Iter: 62000; Elasped: 1 day, 1:07:58; ETA: 7:17:47; LR: 4.500e-06;, pseudo_seg_loss: 0.3726, attn_loss: 0.2694, pseudo_seg_mAcc: 0.9673
+2025-07-12 13:35:01,383 - dist_clip_coco.py - INFO: Iter: 62200; Elasped: 1 day, 1:10:16; ETA: 7:12:11; LR: 4.450e-06;, pseudo_seg_loss: 0.3569, attn_loss: 0.2684, pseudo_seg_mAcc: 0.8607
+2025-07-12 13:37:21,951 - dist_clip_coco.py - INFO: Iter: 62400; Elasped: 1 day, 1:12:36; ETA: 7:06:37; LR: 4.400e-06;, pseudo_seg_loss: 0.3771, attn_loss: 0.2715, pseudo_seg_mAcc: 0.8852
+2025-07-12 13:39:40,784 - dist_clip_coco.py - INFO: Iter: 62600; Elasped: 1 day, 1:14:55; ETA: 7:01:04; LR: 4.350e-06;, pseudo_seg_loss: 0.3645, attn_loss: 0.2708, pseudo_seg_mAcc: 0.7650
+2025-07-12 13:42:00,016 - dist_clip_coco.py - INFO: Iter: 62800; Elasped: 1 day, 1:17:14; ETA: 6:55:32; LR: 4.300e-06;, pseudo_seg_loss: 0.3612, attn_loss: 0.2691, pseudo_seg_mAcc: 0.9257
+2025-07-12 13:44:22,223 - dist_clip_coco.py - INFO: Iter: 63000; Elasped: 1 day, 1:19:37; ETA: 6:50:03; LR: 4.250e-06;, pseudo_seg_loss: 0.3977, attn_loss: 0.2704, pseudo_seg_mAcc: 0.8632
+2025-07-12 13:46:42,372 - dist_clip_coco.py - INFO: Iter: 63200; Elasped: 1 day, 1:21:57; ETA: 6:44:34; LR: 4.200e-06;, pseudo_seg_loss: 0.3537, attn_loss: 0.2703, pseudo_seg_mAcc: 0.8854
+2025-07-12 13:49:05,321 - dist_clip_coco.py - INFO: Iter: 63400; Elasped: 1 day, 1:24:20; ETA: 6:39:06; LR: 4.150e-06;, pseudo_seg_loss: 0.3714, attn_loss: 0.2697, pseudo_seg_mAcc: 0.8378
+2025-07-12 13:51:25,148 - dist_clip_coco.py - INFO: Iter: 63600; Elasped: 1 day, 1:26:40; ETA: 6:33:40; LR: 4.100e-06;, pseudo_seg_loss: 0.3612, attn_loss: 0.2710, pseudo_seg_mAcc: 0.8684
+2025-07-12 13:53:45,455 - dist_clip_coco.py - INFO: Iter: 63800; Elasped: 1 day, 1:29:00; ETA: 6:28:14; LR: 4.050e-06;, pseudo_seg_loss: 0.3863, attn_loss: 0.2766, pseudo_seg_mAcc: 0.9001
+2025-07-12 13:56:07,024 - dist_clip_coco.py - INFO: Iter: 64000; Elasped: 1 day, 1:31:21; ETA: 6:22:50; LR: 4.000e-06;, pseudo_seg_loss: 0.3866, attn_loss: 0.2693, pseudo_seg_mAcc: 0.9808
+2025-07-12 13:58:28,060 - dist_clip_coco.py - INFO: Iter: 64200; Elasped: 1 day, 1:33:42; ETA: 6:17:27; LR: 3.950e-06;, pseudo_seg_loss: 0.3768, attn_loss: 0.2711, pseudo_seg_mAcc: 0.8984
+2025-07-12 14:00:48,553 - dist_clip_coco.py - INFO: Iter: 64400; Elasped: 1 day, 1:36:03; ETA: 6:12:05; LR: 3.900e-06;, pseudo_seg_loss: 0.3623, attn_loss: 0.2673, pseudo_seg_mAcc: 0.8691
+2025-07-12 14:03:08,913 - dist_clip_coco.py - INFO: Iter: 64600; Elasped: 1 day, 1:38:23; ETA: 6:06:44; LR: 3.850e-06;, pseudo_seg_loss: 0.3834, attn_loss: 0.2687, pseudo_seg_mAcc: 0.9523
+2025-07-12 14:05:30,427 - dist_clip_coco.py - INFO: Iter: 64800; Elasped: 1 day, 1:40:45; ETA: 6:01:24; LR: 3.800e-06;, pseudo_seg_loss: 0.3982, attn_loss: 0.2720, pseudo_seg_mAcc: 0.9656
+2025-07-12 14:07:49,133 - dist_clip_coco.py - INFO: Iter: 65000; Elasped: 1 day, 1:43:04; ETA: 5:56:05; LR: 3.750e-06;, pseudo_seg_loss: 0.3731, attn_loss: 0.2691, pseudo_seg_mAcc: 0.9522
+2025-07-12 14:10:07,705 - dist_clip_coco.py - INFO: Iter: 65200; Elasped: 1 day, 1:45:22; ETA: 5:50:47; LR: 3.700e-06;, pseudo_seg_loss: 0.3782, attn_loss: 0.2651, pseudo_seg_mAcc: 0.9246
+2025-07-12 14:12:29,236 - dist_clip_coco.py - INFO: Iter: 65400; Elasped: 1 day, 1:47:44; ETA: 5:45:31; LR: 3.650e-06;, pseudo_seg_loss: 0.3529, attn_loss: 0.2644, pseudo_seg_mAcc: 0.8935
+2025-07-12 14:14:49,093 - dist_clip_coco.py - INFO: Iter: 65600; Elasped: 1 day, 1:50:04; ETA: 5:40:15; LR: 3.600e-06;, pseudo_seg_loss: 0.3614, attn_loss: 0.2673, pseudo_seg_mAcc: 0.8574
+2025-07-12 14:17:09,071 - dist_clip_coco.py - INFO: Iter: 65800; Elasped: 1 day, 1:52:23; ETA: 5:35:00; LR: 3.550e-06;, pseudo_seg_loss: 0.3789, attn_loss: 0.2709, pseudo_seg_mAcc: 0.9261
+2025-07-12 14:19:28,273 - dist_clip_coco.py - INFO: Iter: 66000; Elasped: 1 day, 1:54:43; ETA: 5:29:47; LR: 3.500e-06;, pseudo_seg_loss: 0.3923, attn_loss: 0.2720, pseudo_seg_mAcc: 0.8844
+2025-07-12 14:21:46,493 - dist_clip_coco.py - INFO: Iter: 66200; Elasped: 1 day, 1:57:01; ETA: 5:24:34; LR: 3.450e-06;, pseudo_seg_loss: 0.3582, attn_loss: 0.2678, pseudo_seg_mAcc: 0.9612
+2025-07-12 14:24:03,660 - dist_clip_coco.py - INFO: Iter: 66400; Elasped: 1 day, 1:59:18; ETA: 5:19:22; LR: 3.400e-06;, pseudo_seg_loss: 0.3717, attn_loss: 0.2658, pseudo_seg_mAcc: 0.8338
+2025-07-12 14:26:22,954 - dist_clip_coco.py - INFO: Iter: 66600; Elasped: 1 day, 2:01:37; ETA: 5:14:11; LR: 3.350e-06;, pseudo_seg_loss: 0.3404, attn_loss: 0.2681, pseudo_seg_mAcc: 0.9839
+2025-07-12 14:28:41,795 - dist_clip_coco.py - INFO: Iter: 66800; Elasped: 1 day, 2:03:56; ETA: 5:09:02; LR: 3.300e-06;, pseudo_seg_loss: 0.3509, attn_loss: 0.2652, pseudo_seg_mAcc: 0.8324
+2025-07-12 14:31:00,560 - dist_clip_coco.py - INFO: Iter: 67000; Elasped: 1 day, 2:06:15; ETA: 5:03:53; LR: 3.250e-06;, pseudo_seg_loss: 0.3695, attn_loss: 0.2710, pseudo_seg_mAcc: 0.9733
+2025-07-12 14:33:20,180 - dist_clip_coco.py - INFO: Iter: 67200; Elasped: 1 day, 2:08:35; ETA: 4:58:46; LR: 3.200e-06;, pseudo_seg_loss: 0.3803, attn_loss: 0.2700, pseudo_seg_mAcc: 0.8993
+2025-07-12 14:35:40,158 - dist_clip_coco.py - INFO: Iter: 67400; Elasped: 1 day, 2:10:55; ETA: 4:53:40; LR: 3.150e-06;, pseudo_seg_loss: 0.3662, attn_loss: 0.2655, pseudo_seg_mAcc: 0.8529
+2025-07-12 14:38:01,750 - dist_clip_coco.py - INFO: Iter: 67600; Elasped: 1 day, 2:13:16; ETA: 4:48:35; LR: 3.100e-06;, pseudo_seg_loss: 0.3692, attn_loss: 0.2719, pseudo_seg_mAcc: 0.9479
+2025-07-12 14:40:23,361 - dist_clip_coco.py - INFO: Iter: 67800; Elasped: 1 day, 2:15:38; ETA: 4:43:31; LR: 3.050e-06;, pseudo_seg_loss: 0.3525, attn_loss: 0.2707, pseudo_seg_mAcc: 0.8943
+2025-07-12 14:42:41,857 - dist_clip_coco.py - INFO: Iter: 68000; Elasped: 1 day, 2:17:56; ETA: 4:38:27; LR: 3.000e-06;, pseudo_seg_loss: 0.3642, attn_loss: 0.2642, pseudo_seg_mAcc: 0.9344
+2025-07-12 14:45:01,174 - dist_clip_coco.py - INFO: Iter: 68200; Elasped: 1 day, 2:20:16; ETA: 4:33:25; LR: 2.950e-06;, pseudo_seg_loss: 0.3795, attn_loss: 0.2677, pseudo_seg_mAcc: 0.9540
+2025-07-12 14:47:19,476 - dist_clip_coco.py - INFO: Iter: 68400; Elasped: 1 day, 2:22:34; ETA: 4:28:23; LR: 2.900e-06;, pseudo_seg_loss: 0.3811, attn_loss: 0.2701, pseudo_seg_mAcc: 0.8963
+2025-07-12 14:49:38,619 - dist_clip_coco.py - INFO: Iter: 68600; Elasped: 1 day, 2:24:53; ETA: 4:23:22; LR: 2.850e-06;, pseudo_seg_loss: 0.3746, attn_loss: 0.2662, pseudo_seg_mAcc: 0.8708
+2025-07-12 14:51:59,799 - dist_clip_coco.py - INFO: Iter: 68800; Elasped: 1 day, 2:27:14; ETA: 4:18:23; LR: 2.800e-06;, pseudo_seg_loss: 0.3810, attn_loss: 0.2684, pseudo_seg_mAcc: 0.8419
+2025-07-12 14:54:21,621 - dist_clip_coco.py - INFO: Iter: 69000; Elasped: 1 day, 2:29:36; ETA: 4:13:24; LR: 2.750e-06;, pseudo_seg_loss: 0.3522, attn_loss: 0.2701, pseudo_seg_mAcc: 0.8324
+2025-07-12 14:56:41,830 - dist_clip_coco.py - INFO: Iter: 69200; Elasped: 1 day, 2:31:56; ETA: 4:08:27; LR: 2.700e-06;, pseudo_seg_loss: 0.3529, attn_loss: 0.2638, pseudo_seg_mAcc: 0.7667
+2025-07-12 14:59:03,508 - dist_clip_coco.py - INFO: Iter: 69400; Elasped: 1 day, 2:34:18; ETA: 4:03:30; LR: 2.650e-06;, pseudo_seg_loss: 0.3967, attn_loss: 0.2694, pseudo_seg_mAcc: 0.9443
+2025-07-12 15:01:23,064 - dist_clip_coco.py - INFO: Iter: 69600; Elasped: 1 day, 2:36:37; ETA: 3:58:34; LR: 2.600e-06;, pseudo_seg_loss: 0.3671, attn_loss: 0.2684, pseudo_seg_mAcc: 0.8478
+2025-07-12 15:03:43,122 - dist_clip_coco.py - INFO: Iter: 69800; Elasped: 1 day, 2:38:58; ETA: 3:53:39; LR: 2.550e-06;, pseudo_seg_loss: 0.3567, attn_loss: 0.2671, pseudo_seg_mAcc: 0.7730
+2025-07-12 15:06:03,609 - dist_clip_coco.py - INFO: Iter: 70000; Elasped: 1 day, 2:41:18; ETA: 3:48:45; LR: 2.500e-06;, pseudo_seg_loss: 0.3699, attn_loss: 0.2707, pseudo_seg_mAcc: 0.8550
+2025-07-12 15:06:03,610 - dist_clip_coco.py - INFO: Validating...
+2025-07-12 17:18:12,601 - dist_clip_coco.py - INFO: cams score:
+2025-07-12 17:18:12,601 - dist_clip_coco.py - INFO: {'pAcc': 0.8217462754819579, 'mAcc': 0.6826687324483446, 'miou': 0.4612768439809068, 'iou': {0: 0.8088943544013996, 1: 0.43201805996165693, 2: 0.45726262086943653, 3: 0.45667790598941566, 4: 0.6776988310881087, 5: 0.6769930402900142, 6: 0.7485813710839055, 7: 0.713434942956825, 8: 0.5245102345370505, 9: 0.4322946659259706, 10: 0.16005930133414326, 11: 0.6137060721543233, 12: 0.6560036111336099, 13: 0.6099296845984059, 14: 0.34973773158839483, 15: 0.5477815298030863, 16: 0.8072497832842569, 17: 0.7500886838593772, 18: 0.7148847467256112, 19: 0.703611180857455, 20: 0.7409433270503156, 21: 0.8154084341216795, 22: 0.8456354412267272, 23: 0.6409354274769765, 24: 0.6513157179090396, 25: 0.2596240870323664, 26: 0.6371998682696868, 27: 0.2102405345497429, 28: 0.17903676149967965, 29: 0.5646343223760903, 30: 0.5864212714366834, 31: 0.12417314275245862, 32: 0.18208796216981335, 33: 0.048011317380498394, 34: 0.4240667180085995, 35: 0.12183862084395476, 36: 0.2165316097559128, 37: 0.2246643560354896, 38: 0.4198571843182899, 39: 0.20893015903317333, 40: 0.2558778293242976, 41: 0.3031637078475845, 42: 0.30826190375293183, 43: 0.09898480985789868, 44: 0.08767919657831987, 45: 0.07757682286580171, 46: 0.26542784122865065, 47: 0.6418938214711745, 48: 0.5441666794901306, 49: 0.579365092522311, 50: 0.5849299798844316, 51: 0.4607146385734257, 52: 0.31674204915215465, 53: 0.6326292661374431, 54: 0.6691482053305382, 55: 0.7033657840573121, 56: 0.5904433683374697, 57: 0.2805431264689267, 58: 0.563795455316571, 59: 0.3239963441336703, 60: 0.5948905113489488, 61: 0.4097123841473007, 62: 0.6797476333132663, 63: 0.47085503484606817, 64: 0.5570260382605935, 65: 0.18456009923904956, 66: 0.3816920449806576, 67: 0.5523827877219321, 68: 0.3867091639920039, 69: 0.42380456852687115, 70: 0.4041453185545275, 71: 0.4238508393695146, 72: 0.3392376291692536, 73: 0.495588779520568, 74: 0.36191341416351935, 75: 0.42199331261855505, 76: 0.3646057293277688, 77: 0.3979421441475726, 78: 0.694356763620576, 79: 0.3667832421812023, 80: 0.21994638538303202}}
+2025-07-12 17:18:12,601 - dist_clip_coco.py - INFO: segs score:
+2025-07-12 17:18:12,601 - dist_clip_coco.py - INFO: {'pAcc': 0.856081202006282, 'mAcc': 0.6696403394685339, 'miou': 0.5346848242089879, 'iou': {0: 0.8453161247891762, 1: 0.5467050735097378, 2: 0.5751469348932415, 3: 0.5365724272860531, 4: 0.7198648494984776, 5: 0.7504362672411478, 6: 0.7797653369079218, 7: 0.7780509725512431, 8: 0.5592012935703057, 9: 0.5336395456308907, 10: 0.5729394305240847, 11: 0.7970526394250148, 12: 0.6968006147864011, 13: 0.7247498905727082, 14: 0.4841128789813599, 15: 0.6831826870790815, 16: 0.7773124951647838, 17: 0.7693190578064903, 18: 0.7297877222068234, 19: 0.7429401058061952, 20: 0.7848752125894418, 21: 0.8310358863996246, 22: 0.8540451241166601, 23: 0.7537373840898547, 24: 0.7373967043706458, 25: 0.36084775904879973, 26: 0.7324880425434468, 27: 0.2935952488286799, 28: 0.18762401823153282, 29: 0.5871442353156746, 30: 0.7030048048798581, 31: 0.193488716924294, 32: 0.45366967186581864, 33: 0.4926945487732107, 34: 0.5387043504998027, 35: 0.278876667761162, 36: 0.3597663731212798, 37: 0.3684639428159674, 38: 0.6190023193591495, 39: 0.41660550366208515, 40: 0.3671466518181847, 41: 0.3550202651083232, 42: 0.3603903338812239, 43: 0.2531997758830594, 44: 0.32435227062911587, 45: 0.17435583115415668, 46: 0.23038414646191557, 47: 0.680042509849284, 48: 0.5593309210111161, 49: 0.43693920088849414, 50: 0.6396969380579732, 51: 0.5674344944426564, 52: 0.39041383344485875, 53: 0.5760700997521816, 54: 0.5431597342081403, 55: 0.5765085833478906, 56: 0.5089574278832675, 57: 0.38332977062585855, 58: 0.5421257378388181, 59: 0.24393784430208523, 60: 0.6097174158439143, 61: 0.3139032165747986, 62: 0.7386193181648417, 63: 0.48849509977391964, 64: 0.5461686510359024, 65: 0.3507771545385213, 66: 0.5328286958407751, 67: 0.5990967973178195, 68: 0.5922137576165281, 69: 0.5536439723171953, 70: 0.4075377232313969, 71: 0.3685041895203022, 72: 0.4593913208048898, 73: 0.57435973489097, 74: 0.39376833190280214, 75: 0.6162487765280911, 76: 0.33766838188654474, 77: 0.4875529523828669, 78: 0.6754165830665643, 79: 0.4454910092631834, 80: 0.3553084444094656}}
+2025-07-12 17:20:34,218 - dist_clip_coco.py - INFO: Iter: 70200; Elasped: 1 day, 4:55:49; ETA: 4:02:19; LR: 2.450e-06;, pseudo_seg_loss: 0.3725, attn_loss: 0.2726, pseudo_seg_mAcc: 0.9016
+2025-07-12 17:22:52,814 - dist_clip_coco.py - INFO: Iter: 70400; Elasped: 1 day, 4:58:07; ETA: 3:57:00; LR: 2.400e-06;, pseudo_seg_loss: 0.3484, attn_loss: 0.2639, pseudo_seg_mAcc: 0.8551
+2025-07-12 17:25:13,009 - dist_clip_coco.py - INFO: Iter: 70600; Elasped: 1 day, 5:00:27; ETA: 3:51:43; LR: 2.350e-06;, pseudo_seg_loss: 0.3628, attn_loss: 0.2683, pseudo_seg_mAcc: 0.8859
+2025-07-12 17:27:34,472 - dist_clip_coco.py - INFO: Iter: 70800; Elasped: 1 day, 5:02:49; ETA: 3:46:28; LR: 2.300e-06;, pseudo_seg_loss: 0.3838, attn_loss: 0.2693, pseudo_seg_mAcc: 0.9216
+2025-07-12 17:29:54,623 - dist_clip_coco.py - INFO: Iter: 71000; Elasped: 1 day, 5:05:09; ETA: 3:41:12; LR: 2.250e-06;, pseudo_seg_loss: 0.3552, attn_loss: 0.2638, pseudo_seg_mAcc: 0.9092
+2025-07-12 17:32:14,964 - dist_clip_coco.py - INFO: Iter: 71200; Elasped: 1 day, 5:07:29; ETA: 3:35:58; LR: 2.200e-06;, pseudo_seg_loss: 0.3926, attn_loss: 0.2712, pseudo_seg_mAcc: 0.9769
+2025-07-12 17:34:34,082 - dist_clip_coco.py - INFO: Iter: 71400; Elasped: 1 day, 5:09:49; ETA: 3:30:45; LR: 2.150e-06;, pseudo_seg_loss: 0.3650, attn_loss: 0.2690, pseudo_seg_mAcc: 0.9768
+2025-07-12 17:36:52,131 - dist_clip_coco.py - INFO: Iter: 71600; Elasped: 1 day, 5:12:07; ETA: 3:25:33; LR: 2.100e-06;, pseudo_seg_loss: 0.3744, attn_loss: 0.2654, pseudo_seg_mAcc: 0.7958
+2025-07-12 17:39:12,613 - dist_clip_coco.py - INFO: Iter: 71800; Elasped: 1 day, 5:14:27; ETA: 3:20:22; LR: 2.050e-06;, pseudo_seg_loss: 0.3660, attn_loss: 0.2687, pseudo_seg_mAcc: 0.9627
+2025-07-12 17:41:42,768 - dist_clip_coco.py - INFO: Iter: 72000; Elasped: 1 day, 5:16:57; ETA: 3:15:13; LR: 2.000e-06;, pseudo_seg_loss: 0.3955, attn_loss: 0.2673, pseudo_seg_mAcc: 0.8563
+2025-07-12 17:44:02,510 - dist_clip_coco.py - INFO: Iter: 72200; Elasped: 1 day, 5:19:17; ETA: 3:10:03; LR: 1.950e-06;, pseudo_seg_loss: 0.3640, attn_loss: 0.2677, pseudo_seg_mAcc: 0.8955
+2025-07-12 17:46:23,643 - dist_clip_coco.py - INFO: Iter: 72400; Elasped: 1 day, 5:21:38; ETA: 3:04:55; LR: 1.900e-06;, pseudo_seg_loss: 0.3591, attn_loss: 0.2709, pseudo_seg_mAcc: 0.9159
+2025-07-12 17:48:43,098 - dist_clip_coco.py - INFO: Iter: 72600; Elasped: 1 day, 5:23:58; ETA: 2:59:47; LR: 1.850e-06;, pseudo_seg_loss: 0.3734, attn_loss: 0.2687, pseudo_seg_mAcc: 0.9611
+2025-07-12 17:51:02,703 - dist_clip_coco.py - INFO: Iter: 72800; Elasped: 1 day, 5:26:17; ETA: 2:54:41; LR: 1.800e-06;, pseudo_seg_loss: 0.3937, attn_loss: 0.2675, pseudo_seg_mAcc: 0.9352
+2025-07-12 17:53:22,112 - dist_clip_coco.py - INFO: Iter: 73000; Elasped: 1 day, 5:28:37; ETA: 2:49:35; LR: 1.750e-06;, pseudo_seg_loss: 0.3351, attn_loss: 0.2656, pseudo_seg_mAcc: 0.8039
+2025-07-12 17:55:42,212 - dist_clip_coco.py - INFO: Iter: 73200; Elasped: 1 day, 5:30:57; ETA: 2:44:30; LR: 1.700e-06;, pseudo_seg_loss: 0.3501, attn_loss: 0.2617, pseudo_seg_mAcc: 0.9169
+2025-07-12 17:58:00,998 - dist_clip_coco.py - INFO: Iter: 73400; Elasped: 1 day, 5:33:15; ETA: 2:39:26; LR: 1.650e-06;, pseudo_seg_loss: 0.3656, attn_loss: 0.2681, pseudo_seg_mAcc: 0.9619
+2025-07-12 18:00:20,555 - dist_clip_coco.py - INFO: Iter: 73600; Elasped: 1 day, 5:35:35; ETA: 2:34:23; LR: 1.600e-06;, pseudo_seg_loss: 0.3987, attn_loss: 0.2688, pseudo_seg_mAcc: 0.9064
+2025-07-12 18:02:40,263 - dist_clip_coco.py - INFO: Iter: 73800; Elasped: 1 day, 5:37:55; ETA: 2:29:21; LR: 1.550e-06;, pseudo_seg_loss: 0.3487, attn_loss: 0.2665, pseudo_seg_mAcc: 0.9523
+2025-07-12 18:04:59,570 - dist_clip_coco.py - INFO: Iter: 74000; Elasped: 1 day, 5:40:14; ETA: 2:24:20; LR: 1.500e-06;, pseudo_seg_loss: 0.3535, attn_loss: 0.2664, pseudo_seg_mAcc: 0.9159
+2025-07-12 18:07:18,037 - dist_clip_coco.py - INFO: Iter: 74200; Elasped: 1 day, 5:42:32; ETA: 2:19:20; LR: 1.450e-06;, pseudo_seg_loss: 0.3509, attn_loss: 0.2668, pseudo_seg_mAcc: 0.9416
+2025-07-12 18:09:37,159 - dist_clip_coco.py - INFO: Iter: 74400; Elasped: 1 day, 5:44:52; ETA: 2:14:20; LR: 1.400e-06;, pseudo_seg_loss: 0.3665, attn_loss: 0.2717, pseudo_seg_mAcc: 0.9489
+2025-07-12 18:11:56,741 - dist_clip_coco.py - INFO: Iter: 74600; Elasped: 1 day, 5:47:11; ETA: 2:09:22; LR: 1.350e-06;, pseudo_seg_loss: 0.3768, attn_loss: 0.2702, pseudo_seg_mAcc: 0.8635
+2025-07-12 18:14:18,818 - dist_clip_coco.py - INFO: Iter: 74800; Elasped: 1 day, 5:49:33; ETA: 2:04:24; LR: 1.300e-06;, pseudo_seg_loss: 0.3488, attn_loss: 0.2661, pseudo_seg_mAcc: 0.9324
+2025-07-12 18:16:39,565 - dist_clip_coco.py - INFO: Iter: 75000; Elasped: 1 day, 5:51:54; ETA: 1:59:27; LR: 1.250e-06;, pseudo_seg_loss: 0.3772, attn_loss: 0.2724, pseudo_seg_mAcc: 0.9130
+2025-07-12 18:18:59,282 - dist_clip_coco.py - INFO: Iter: 75200; Elasped: 1 day, 5:54:14; ETA: 1:54:31; LR: 1.200e-06;, pseudo_seg_loss: 0.3707, attn_loss: 0.2696, pseudo_seg_mAcc: 0.9316
+2025-07-12 18:21:18,596 - dist_clip_coco.py - INFO: Iter: 75400; Elasped: 1 day, 5:56:33; ETA: 1:49:36; LR: 1.150e-06;, pseudo_seg_loss: 0.3387, attn_loss: 0.2611, pseudo_seg_mAcc: 0.9084
+2025-07-12 18:23:38,597 - dist_clip_coco.py - INFO: Iter: 75600; Elasped: 1 day, 5:58:53; ETA: 1:44:41; LR: 1.100e-06;, pseudo_seg_loss: 0.3826, attn_loss: 0.2700, pseudo_seg_mAcc: 0.8800
+2025-07-12 18:25:58,395 - dist_clip_coco.py - INFO: Iter: 75800; Elasped: 1 day, 6:01:13; ETA: 1:39:48; LR: 1.050e-06;, pseudo_seg_loss: 0.3433, attn_loss: 0.2668, pseudo_seg_mAcc: 0.9105
+2025-07-12 18:28:17,978 - dist_clip_coco.py - INFO: Iter: 76000; Elasped: 1 day, 6:03:32; ETA: 1:34:55; LR: 1.000e-06;, pseudo_seg_loss: 0.3313, attn_loss: 0.2649, pseudo_seg_mAcc: 0.8991
+2025-07-12 18:30:36,416 - dist_clip_coco.py - INFO: Iter: 76200; Elasped: 1 day, 6:05:51; ETA: 1:30:03; LR: 9.502e-07;, pseudo_seg_loss: 0.3576, attn_loss: 0.2686, pseudo_seg_mAcc: 0.9600
+2025-07-12 18:32:55,910 - dist_clip_coco.py - INFO: Iter: 76400; Elasped: 1 day, 6:08:10; ETA: 1:25:12; LR: 9.003e-07;, pseudo_seg_loss: 0.3912, attn_loss: 0.2724, pseudo_seg_mAcc: 0.9440
+2025-07-12 18:35:16,263 - dist_clip_coco.py - INFO: Iter: 76600; Elasped: 1 day, 6:10:31; ETA: 1:20:21; LR: 8.502e-07;, pseudo_seg_loss: 0.3613, attn_loss: 0.2701, pseudo_seg_mAcc: 0.8918
+2025-07-12 18:37:37,175 - dist_clip_coco.py - INFO: Iter: 76800; Elasped: 1 day, 6:12:52; ETA: 1:15:32; LR: 8.003e-07;, pseudo_seg_loss: 0.3840, attn_loss: 0.2724, pseudo_seg_mAcc: 0.9403
+2025-07-12 18:39:57,653 - dist_clip_coco.py - INFO: Iter: 77000; Elasped: 1 day, 6:15:12; ETA: 1:10:43; LR: 7.502e-07;, pseudo_seg_loss: 0.3468, attn_loss: 0.2665, pseudo_seg_mAcc: 0.7819
+2025-07-12 18:42:18,887 - dist_clip_coco.py - INFO: Iter: 77200; Elasped: 1 day, 6:17:33; ETA: 1:05:55; LR: 7.003e-07;, pseudo_seg_loss: 0.3591, attn_loss: 0.2635, pseudo_seg_mAcc: 0.9412
+2025-07-12 18:44:40,380 - dist_clip_coco.py - INFO: Iter: 77400; Elasped: 1 day, 6:19:55; ETA: 1:01:08; LR: 6.503e-07;, pseudo_seg_loss: 0.3695, attn_loss: 0.2660, pseudo_seg_mAcc: 0.8677
+2025-07-12 18:46:59,603 - dist_clip_coco.py - INFO: Iter: 77600; Elasped: 1 day, 6:22:14; ETA: 0:56:21; LR: 6.002e-07;, pseudo_seg_loss: 0.3559, attn_loss: 0.2644, pseudo_seg_mAcc: 0.9293
+2025-07-12 18:49:21,182 - dist_clip_coco.py - INFO: Iter: 77800; Elasped: 1 day, 6:24:36; ETA: 0:51:35; LR: 5.503e-07;, pseudo_seg_loss: 0.3543, attn_loss: 0.2686, pseudo_seg_mAcc: 0.9264
+2025-07-12 18:51:41,969 - dist_clip_coco.py - INFO: Iter: 78000; Elasped: 1 day, 6:26:56; ETA: 0:46:50; LR: 5.002e-07;, pseudo_seg_loss: 0.3593, attn_loss: 0.2684, pseudo_seg_mAcc: 0.8955
+2025-07-12 18:54:01,682 - dist_clip_coco.py - INFO: Iter: 78200; Elasped: 1 day, 6:29:16; ETA: 0:42:06; LR: 4.503e-07;, pseudo_seg_loss: 0.3754, attn_loss: 0.2712, pseudo_seg_mAcc: 0.9692
+2025-07-12 18:56:22,215 - dist_clip_coco.py - INFO: Iter: 78400; Elasped: 1 day, 6:31:37; ETA: 0:37:22; LR: 4.002e-07;, pseudo_seg_loss: 0.3488, attn_loss: 0.2650, pseudo_seg_mAcc: 0.9071
+2025-07-12 18:58:42,909 - dist_clip_coco.py - INFO: Iter: 78600; Elasped: 1 day, 6:33:57; ETA: 0:32:39; LR: 3.503e-07;, pseudo_seg_loss: 0.3630, attn_loss: 0.2666, pseudo_seg_mAcc: 0.8774
+2025-07-12 19:01:03,353 - dist_clip_coco.py - INFO: Iter: 78800; Elasped: 1 day, 6:36:18; ETA: 0:27:57; LR: 3.002e-07;, pseudo_seg_loss: 0.3252, attn_loss: 0.2689, pseudo_seg_mAcc: 0.9334
+2025-07-12 19:03:23,296 - dist_clip_coco.py - INFO: Iter: 79000; Elasped: 1 day, 6:38:38; ETA: 0:23:16; LR: 2.503e-07;, pseudo_seg_loss: 0.3899, attn_loss: 0.2718, pseudo_seg_mAcc: 0.8638
+2025-07-12 19:05:43,454 - dist_clip_coco.py - INFO: Iter: 79200; Elasped: 1 day, 6:40:58; ETA: 0:18:35; LR: 2.002e-07;, pseudo_seg_loss: 0.3510, attn_loss: 0.2694, pseudo_seg_mAcc: 0.9391
+2025-07-12 19:08:02,323 - dist_clip_coco.py - INFO: Iter: 79400; Elasped: 1 day, 6:43:17; ETA: 0:13:55; LR: 1.503e-07;, pseudo_seg_loss: 0.3650, attn_loss: 0.2673, pseudo_seg_mAcc: 0.7350
+2025-07-12 19:10:20,589 - dist_clip_coco.py - INFO: Iter: 79600; Elasped: 1 day, 6:45:35; ETA: 0:09:16; LR: 1.002e-07;, pseudo_seg_loss: 0.3530, attn_loss: 0.2708, pseudo_seg_mAcc: 0.9562
+2025-07-12 19:12:40,164 - dist_clip_coco.py - INFO: Iter: 79800; Elasped: 1 day, 6:47:55; ETA: 0:04:37; LR: 5.025e-08;, pseudo_seg_loss: 0.3624, attn_loss: 0.2664, pseudo_seg_mAcc: 0.7900
+2025-07-12 19:14:59,968 - dist_clip_coco.py - INFO: Iter: 80000; Elasped: 1 day, 6:50:14; ETA: 0:00:00; LR: 2.500e-10;, pseudo_seg_loss: 0.3686, attn_loss: 0.2655, pseudo_seg_mAcc: 0.8409
+2025-07-12 19:14:59,969 - dist_clip_coco.py - INFO: Validating...
+2025-07-12 21:26:01,792 - dist_clip_coco.py - INFO: cams score:
+2025-07-12 21:26:01,792 - dist_clip_coco.py - INFO: {'pAcc': 0.8193393734903396, 'mAcc': 0.6828133953404009, 'miou': 0.45808493164169956, 'iou': {0: 0.8062493176801511, 1: 0.4246176198337529, 2: 0.4515667676170242, 3: 0.45611705000370173, 4: 0.6741514553623907, 5: 0.6655496645851094, 6: 0.7441872025798816, 7: 0.7114734389020282, 8: 0.5218744884256166, 9: 0.42340517856496196, 10: 0.16006448721189132, 11: 0.6238861108036227, 12: 0.6605630506259073, 13: 0.626087868144234, 14: 0.3491966588754263, 15: 0.5380604076867519, 16: 0.8071315878693734, 17: 0.7525717486225606, 18: 0.708357046151795, 19: 0.7032399555557841, 20: 0.7407153023557042, 21: 0.8125028172921273, 22: 0.8454928063343001, 23: 0.6358490800084168, 24: 0.6510734720184627, 25: 0.26052593723603445, 26: 0.6334074793279993, 27: 0.20720783620437577, 28: 0.1751907674017293, 29: 0.5655341227643786, 30: 0.5854465952496917, 31: 0.10273345987389894, 32: 0.15921263680766837, 33: 0.04619125087949246, 34: 0.40340653676339794, 35: 0.11504915776121173, 36: 0.218134821034917, 37: 0.19692772637635064, 38: 0.3761342969081171, 39: 0.18976159619660718, 40: 0.2604571015650082, 41: 0.30650879771905376, 42: 0.31144162438691436, 43: 0.0906705419962505, 44: 0.08668674909197098, 45: 0.07287600923780944, 46: 0.2648627182937394, 47: 0.6469729253040964, 48: 0.5515502180376951, 49: 0.5795436334772236, 50: 0.5901290110845728, 51: 0.4532984966654264, 52: 0.31281656937112196, 53: 0.6254289201239738, 54: 0.6690202892481592, 55: 0.7042150212327682, 56: 0.591301939894524, 57: 0.28126879342699335, 58: 0.5649267698218128, 59: 0.3311954511620373, 60: 0.5924815948339558, 61: 0.4118516700652268, 62: 0.6851118736741931, 63: 0.4701625563378795, 64: 0.5473101102566116, 65: 0.1853345666025527, 66: 0.3771107671352047, 67: 0.5466060732104786, 68: 0.3891810403685199, 69: 0.4252159691020371, 70: 0.4054901909543846, 71: 0.38675351123392937, 72: 0.3345889619182878, 73: 0.4981071244041449, 74: 0.3587399201086829, 75: 0.43098114753984446, 76: 0.36758212597008194, 77: 0.38928380881145996, 78: 0.6936128848632827, 79: 0.3640194685557559, 80: 0.22133371199315208}}
+2025-07-12 21:26:01,792 - dist_clip_coco.py - INFO: segs score:
+2025-07-12 21:26:01,792 - dist_clip_coco.py - INFO: {'pAcc': 0.8540792977846025, 'mAcc': 0.6744988440329741, 'miou': 0.5317072681819526, 'iou': {0: 0.8429236964338301, 1: 0.5418478466585647, 2: 0.5719047162191356, 3: 0.5424677542764701, 4: 0.7184304164461073, 5: 0.7484471322584717, 6: 0.780859353746854, 7: 0.7745892906759733, 8: 0.5461253638205692, 9: 0.5237862893041367, 10: 0.5536554420361599, 11: 0.7965952576764838, 12: 0.6979642872205164, 13: 0.734662836371419, 14: 0.4795751800341572, 15: 0.6866201637008552, 16: 0.7778802546831457, 17: 0.7686646021839636, 18: 0.7261397477732227, 19: 0.74395874879377, 20: 0.7800165407918186, 21: 0.8310550542629859, 22: 0.8535936010675984, 23: 0.753440843109436, 24: 0.7389520939744016, 25: 0.364781110375311, 26: 0.7445592283103801, 27: 0.30274813859127053, 28: 0.18355111657378423, 29: 0.6154454350907008, 30: 0.7120590046665128, 31: 0.16874652310694588, 32: 0.45030910022535175, 33: 0.49186333640710234, 34: 0.5577305999667824, 35: 0.1998937205149391, 36: 0.3745080516977764, 37: 0.300642681772739, 38: 0.5286630220968126, 39: 0.3007312623477414, 40: 0.3712561907476859, 41: 0.35512882236570337, 42: 0.3597600889616599, 43: 0.2517091741763115, 44: 0.3225523762498457, 45: 0.16250609842680358, 46: 0.23945284827866814, 47: 0.6838188563127761, 48: 0.5713132862543608, 49: 0.44940103087603783, 50: 0.6564563299548773, 51: 0.5641040885469715, 52: 0.41061231256852315, 53: 0.5782417786729506, 54: 0.5562183531766745, 55: 0.5958107935331267, 56: 0.49610536969817426, 57: 0.37137665949938986, 58: 0.5473237198213815, 59: 0.25597045104070376, 60: 0.6047230684602235, 61: 0.325826846863475, 62: 0.7463381906915163, 63: 0.48545949572240327, 64: 0.5322387417294031, 65: 0.3547017552780281, 66: 0.5339958294733788, 67: 0.6050922763686256, 68: 0.5822623250846976, 69: 0.5476065571731978, 70: 0.42819613428796865, 71: 0.39291378362964485, 72: 0.46034825117835615, 73: 0.580626736653612, 74: 0.3813337863545878, 75: 0.6246532176057055, 76: 0.3345731221948331, 77: 0.4969262511283308, 78: 0.6722836772820295, 79: 0.42124684964638653, 80: 0.34743435150493274}}
