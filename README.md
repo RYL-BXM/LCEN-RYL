@@ -113,7 +113,7 @@ LCEN-RYL/
 - Python 3.8
 - PyTorch 1.8.0
 - CUDA 11.1
-- NVIDIA RTX 3090 / A100
+- NVIDIA RTX 4090
 
 ---
 
@@ -143,14 +143,7 @@ pip install -r requirements.txt
 
 ---
 
-## MMCV Installation
-
-```bash
-pip install mmcv-full==1.2.7 -f https://download.openmmlab.com/mmcv/dist/cu111/torch1.8.0/index.html
-```
----
-
-# 7. Requirements
+# 6. Requirements
 
 ```text
 mmcv_full==1.2.7
