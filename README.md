@@ -68,34 +68,39 @@ Extensive experiments on PASCAL VOC 2012 and MS COCO 2014 demonstrate that LCEN 
 LCEN-RYL/
 ├── WeCLIP_Plus/
 │   ├── Decoder/
-│   │   ├── DCCM.py
-│   │   ├── HCSA.py
-│   │   ├── PAR.py
-│   │   ├── conv_head.py
-│   │   ├── segformer_head.py
-│   │   └── dice_loss.py
-│   │
-│   ├── clip/
-│   │
-│   ├── TransDecoder/
-│   │   ├── Transformer.py
+│   │   ├── clip/
+│   │   ├── MaskMultiheadAttention.py
 │   │   ├── TransDecoder.py
+│   │   ├── TransDecoder_clip_dino.py
+│   │   ├── TransDecoder_cls.py
 │   │   ├── TransDecoder_seg.py
-│   │   └── MaskMultiheadAttention.py
-│   │
-│   ├── model_attn_aff_voc.py
+│   │   ├── TransDecoder_seg_tsne.py
+│   │   └── Transformer.py
+│   ├── DCCM.py
+│   ├── HCSA.py
+│   ├── PAR.py
+│   ├── __init__.py
+│   ├── conv_head.py
+│   ├── dice_loss.py
 │   ├── model_attn_aff_coco.py
+│   ├── model_attn_aff_voc.py
 │   ├── model_attn_aff_voc_seg.py
+│   ├── segformer_head.py
+│   ├── segformer_head_seg.py
 │   └── test_msc_flip_voc_seg.py
-│
-├── generate_cams_voc12.py
+├── .gitignore
+├── LICENSE
+├── README.md
+├── coco 实验数据.log
+├── 实验数据.log
 ├── generate_cams_coco14.py
-├── test_msc_flip_voc.py
-├── test_msc_flip_coco.py
-├── vis_cam_from_npy.py
-├── vis_coco_cam_from_npy.py
+├── generate_cams_voc12.py
 ├── requirements.txt
-└── README.md
+├── test_msc_flip_coco.py
+├── test_msc_flip_seg.py
+├── test_msc_flip_voc.py
+├── vis_cam_from_npy.py
+└── vis_coco_cam_from_npy.py
 ```
 
 ---
