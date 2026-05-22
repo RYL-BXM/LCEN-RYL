@@ -230,27 +230,6 @@ logs/
 
 ---
 
-# 10. Evaluation
-
-## Evaluate on PASCAL VOC 2012
-
-```bash
-python eval_voc.py
-```
-
----
-
-## Evaluate on MS COCO 2014
-
-```bash
-python eval_coco.py
-```
-
-Evaluation results and visualization outputs are automatically saved to:
-
-```text
-results/
-```
 
 ---
 
