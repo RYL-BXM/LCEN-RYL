@@ -260,36 +260,21 @@ All experiments are conducted using the same settings described in the paper.
 
 ---
 
-# 12. Citation
 
-If you use this repository in your research, please cite:
 
-```bibtex
-@article{ren2026lcen,
-  title={LCEN: Lightweight End-to-End Weakly Supervised Semantic Segmentation via Completeness Enhancement with Noise Suppression},
-  author={Ren, YiLong and Zhao, XueZhuan and Li, LingLing and Shao, XiaoYan and Ren, Ning and Zhang, Jian},
-  journal={Pattern Analysis and Applications},
-  year={2026}
-}
-```
-
----
-
-# 13. Acknowledgements
+# 12. Acknowledgements
 
 This repository is built upon several outstanding open-source projects and frameworks:
 
 - WeCLIP
 - CLIP
-- DINOv2
 - PyTorch
-- MMCV
 
 We sincerely thank the authors for their valuable contributions to the computer vision community.
 
 ---
 
-# 14. Contact
+# 13. Contact
 
 If you encounter any problems during code reproduction or implementation, please contact:
 
@@ -297,6 +282,6 @@ If you encounter any problems during code reproduction or implementation, please
 
 ---
 
-# 15. License
+# 14. License
 
 This project is released under the MIT License.
