@@ -205,7 +205,7 @@ The project provides independent distributed training scripts for different data
 ## Train on PASCAL VOC 2012
 
 ```bash
- dist_clip_voc.py
+python dist_clip_voc.py
 ```
 
 ---
@@ -213,7 +213,7 @@ The project provides independent distributed training scripts for different data
 ## Train on MS COCO 2014
 
 ```bash
- dist_clip_coco.py
+python dist_clip_coco.py
 ```
 
 Training checkpoints are automatically saved to:
