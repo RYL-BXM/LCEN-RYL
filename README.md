@@ -198,14 +198,14 @@ Supported pretrained backbones:
 
 ---
 
-# 10. Model Training
+# 9. Model Training
 
 The project provides independent distributed training scripts for different datasets.
 
 ## Train on PASCAL VOC 2012
 
 ```bash
-python dist_clip_voc.py
+ dist_clip_voc.py
 ```
 
 ---
@@ -213,7 +213,7 @@ python dist_clip_voc.py
 ## Train on MS COCO 2014
 
 ```bash
-python dist_clip_coco.py
+ dist_clip_coco.py
 ```
 
 Training checkpoints are automatically saved to:
@@ -230,7 +230,7 @@ logs/
 
 ---
 
-# 11. Evaluation
+# 10. Evaluation
 
 ## Evaluate on PASCAL VOC 2012
 
