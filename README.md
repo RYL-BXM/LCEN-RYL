@@ -105,7 +105,17 @@ LCEN-RYL/
 
 ---
 
-# 6. Installation
+# 5. Installation
+
+## Recommended Environment
+
+- Ubuntu 20.04
+- Python 3.8
+- PyTorch 1.8.0
+- CUDA 11.1
+- NVIDIA RTX 3090 / A100
+
+---
 
 ## Clone Repository
 
@@ -131,6 +141,13 @@ conda activate lcen
 pip install -r requirements.txt
 ```
 
+---
+
+## MMCV Installation
+
+```bash
+pip install mmcv-full==1.2.7 -f https://download.openmmlab.com/mmcv/dist/cu111/torch1.8.0/index.html
+```
 ---
 
 # 7. Requirements
