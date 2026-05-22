@@ -227,13 +227,10 @@ Training logs are stored in:
 ```text
 logs/
 ```
-
 ---
 
 
----
-
-# 12. Experimental Settings
+# 10. Experimental Settings
 
 | Item | Setting |
 |---|---|
@@ -248,7 +245,7 @@ logs/
 
 ---
 
-# 13. Reproducibility
+# 11. Reproducibility
 
 To ensure reproducibility, this repository provides:
 
@@ -263,7 +260,7 @@ All experiments are conducted using the same settings described in the paper.
 
 ---
 
-# 14. Citation
+# 12. Citation
 
 If you use this repository in your research, please cite:
 
@@ -278,7 +275,7 @@ If you use this repository in your research, please cite:
 
 ---
 
-# 15. Acknowledgements
+# 13. Acknowledgements
 
 This repository is built upon several outstanding open-source projects and frameworks:
 
@@ -292,7 +289,7 @@ We sincerely thank the authors for their valuable contributions to the computer 
 
 ---
 
-# 16. Contact
+# 14. Contact
 
 If you encounter any problems during code reproduction or implementation, please contact:
 
@@ -300,6 +297,6 @@ If you encounter any problems during code reproduction or implementation, please
 
 ---
 
-# 17. License
+# 15. License
 
 This project is released under the MIT License.
