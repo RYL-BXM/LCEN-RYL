@@ -62,35 +62,38 @@ Extensive experiments on PASCAL VOC 2012 and MS COCO 2014 demonstrate that LCEN 
 
 ---
 
-# 5. Repository Structure
+# 4. Repository Structure
 
 ```text
 LCEN-RYL/
-├── datasets/
-│   ├── VOC2012/
-│   ├── SBD/
-│   └── COCO2014/
-│
-├── pretrained/
-│
 ├── WeCLIP_Plus/
-│   ├── models/
-│   │   ├── WeCLIP_Plus.py
-│   │   ├── SegFormer_head.py
-│   │   ├── TransDecoder.py
+│   ├── Decoder/
+│   │   ├── DCCM.py
+│   │   ├── HCSA.py
 │   │   ├── PAR.py
-│   │   ├── FCM.py
-│   │   └── SCSA.py
+│   │   ├── conv_head.py
+│   │   ├── segformer_head.py
+│   │   └── dice_loss.py
 │   │
-│   ├── utils/
-│   ├── scripts/
-│   └── datasets/
+│   ├── clip/
+│   │
+│   ├── TransDecoder/
+│   │   ├── Transformer.py
+│   │   ├── TransDecoder.py
+│   │   ├── TransDecoder_seg.py
+│   │   └── MaskMultiheadAttention.py
+│   │
+│   ├── model_attn_aff_voc.py
+│   ├── model_attn_aff_coco.py
+│   ├── model_attn_aff_voc_seg.py
+│   └── test_msc_flip_voc_seg.py
 │
-├── dist_clip_voc.py
-├── dist_clip_coco.py
-├── eval_voc.py
-├── eval_coco.py
-│
+├── generate_cams_voc12.py
+├── generate_cams_coco14.py
+├── test_msc_flip_voc.py
+├── test_msc_flip_coco.py
+├── vis_cam_from_npy.py
+├── vis_coco_cam_from_npy.py
 ├── requirements.txt
 └── README.md
 ```
