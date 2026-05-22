@@ -36,10 +36,10 @@ Extensive experiments on the **PASCAL VOC 2012** and **MS COCO 2014** benchmarks
 
 # 2. Main Contributions
 
-A lightweight end-to-end weakly supervised semantic segmentation framework based on frozen CLIP semantic priors.
-A Dual-Channel Contextual Modulation (DCCM) module for enhancing activation completeness and preserving structural consistency.
-A Hybrid Channel-Spatial Attention (HCSA) module for suppressing semantic ambiguity and background interference.
-Superior segmentation performance on both PASCAL VOC 2012 and MS COCO 2014 benchmarks.
+-A lightweight end-to-end weakly supervised semantic segmentation framework based on frozen CLIP semantic priors.
+-A Dual-Channel Contextual Modulation (DCCM) module for enhancing activation completeness and preserving structural consistency.
+-A Hybrid Channel-Spatial Attention (HCSA) module for suppressing semantic ambiguity and background interference.
+-Superior segmentation performance on both PASCAL VOC 2012 and MS COCO 2014 benchmarks.
 
 
 
