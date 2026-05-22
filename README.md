@@ -34,35 +34,18 @@ Extensive experiments on the **PASCAL VOC 2012** and **MS COCO 2014** benchmarks
 
 ---
 
-# 2. Framework Overview
+# 2. Main Contributions
 
-<p align="center">
-<img src="assets/framework.png" width="95%">
-</p>
+A lightweight end-to-end weakly supervised semantic segmentation framework based on frozen CLIP semantic priors.
+A Dual-Channel Contextual Modulation (DCCM) module for enhancing activation completeness and preserving structural consistency.
+A Hybrid Channel-Spatial Attention (HCSA) module for suppressing semantic ambiguity and background interference.
+Superior segmentation performance on both PASCAL VOC 2012 and MS COCO 2014 benchmarks.
 
-> Overall architecture of the proposed LCEN framework.
 
----
-
-# 3. Visualization Results
-
-## PASCAL VOC 2012
-
-<p align="center">
-<img src="assets/voc_vis.png" width="95%">
-</p>
 
 ---
 
-## MS COCO 2014
-
-<p align="center">
-<img src="assets/coco_vis.png" width="95%">
-</p>
-
----
-
-# 4. Experimental Results
+# 3. Experimental Results
 
 ## PASCAL VOC 2012
 
