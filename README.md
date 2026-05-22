@@ -93,6 +93,8 @@ LCEN-RYL/
 ├── README.md
 ├── coco 实验数据.log
 ├── 实验数据.log
+├── dist_clip_coco.py
+├── dist_clip_voc.py
 ├── generate_cams_coco14.py
 ├── generate_cams_voc12.py
 ├── requirements.txt
@@ -102,7 +104,6 @@ LCEN-RYL/
 ├── vis_cam_from_npy.py
 └── vis_coco_cam_from_npy.py
 ```
-
 ---
 
 # 5. Installation
