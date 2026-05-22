@@ -13,24 +13,19 @@ If you find this repository useful for your research, please consider citing our
 
 # 1. Introduction
 
-Weakly Supervised Semantic Segmentation (WSSS) aims to generate accurate pixel-level semantic predictions using only image-level annotations. Despite recent progress in end-to-end WSSS frameworks, existing approaches still suffer from two critical issues:
+Weakly Supervised Semantic Segmentation (WSSS) aims to generate accurate pixel-level semantic predictions using only image-level annotations. Despite recent progress in end-to-end WSSS frameworks, existing approaches still suffer from incomplete object activation, blurred semantic boundaries, semantic ambiguity, and background interference during pseudo-label generation.
 
-- incomplete activation in low-response regions,
-- erroneous activation caused by semantic co-occurrence,
-- blurred semantic boundaries,
-- and background interference during pseudo-label generation.
-
-To address these challenges, we propose **LCEN**, a lightweight end-to-end WSSS framework built upon frozen CLIP semantic priors. LCEN introduces two collaborative decoder enhancement modules:
+To address these limitations, we propose LCEN, a lightweight end-to-end WSSS framework built upon frozen CLIP semantic priors. The proposed method introduces two collaborative enhancement modules:
 
 ### DCCM (Dual-Channel Contextual Modulation)
 
-DCCM explicitly partitions features into semantic and structural subspaces and performs adaptive spatial-channel modulation to enhance low-response regions and preserve boundary structures.
+DCCM explicitly partitions feature representations into semantic and structural subspaces and performs adaptive spatial-channel modulation to enhance low-response regions while preserving object boundary consistency.
 
 ### HCSA (Hybrid Channel-Spatial Attention)
 
-HCSA integrates multi-scale spatial attention with multi-head channel self-attention to suppress background noise and improve semantic discriminability.
+HCSA integrates multi-scale spatial attention with channel self-attention mechanisms to suppress semantic noise and improve discriminative feature representation.
 
-Extensive experiments on the **PASCAL VOC 2012** and **MS COCO 2014** benchmarks demonstrate that LCEN achieves superior segmentation performance compared with existing state-of-the-art single-stage WSSS methods while maintaining lightweight computation and efficient end-to-end optimization.
+Extensive experiments on PASCAL VOC 2012 and MS COCO 2014 demonstrate that LCEN achieves superior segmentation performance compared with existing state-of-the-art single-stage WSSS methods while maintaining lightweight computation and efficient end-to-end optimization.
 
 ---
 
