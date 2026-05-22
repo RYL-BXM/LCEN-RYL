@@ -160,36 +160,28 @@ scikit_learn==1.0.1
 
 ---
 
-# 8. Dataset Preparation
+## 6. Dataset Preparation
 
-Our experiments are conducted on the following benchmark datasets:
+This repository does not host any datasets.
+Please download the standard public datasets and organize them according to the following structure.
 
+### Supported Datasets
 - PASCAL VOC 2012
 - MS COCO 2014
 
-## Download Links
+### Dataset Download
+- PASCAL VOC 2012: http://host.robots.ox.ac.uk/pascal/VOC/
+- SBD Augmentation: http://home.bharathh.info/pubs/codes/SBD/download.html
+- MS COCO 2014: https://cocodataset.org/
 
-### PASCAL VOC 2012
-http://host.robots.ox.ac.uk/pascal/VOC/
-
-### SBD Dataset
-http://home.bharathh.info/pubs/codes/SBD/download.html
-
-### MS COCO 2014
-https://cocodataset.org/
-
----
-
-## Recommended Dataset Structure
-
-```text
+### Recommended Dataset Structure
 datasets/
 ├── VOC2012/
 ├── SBD/
 └── COCO2014/
-```
 
-Please modify the dataset root path in the corresponding configuration files before training or evaluation.
+After downloading, place the datasets in the above folders.
+Please modify the dataset path in the configuration files before training.
 
 ---
 
