@@ -183,7 +183,7 @@ Please modify the dataset path in the configuration files before training.
 
 ---
 
-# 9. Pretrained Weights
+# 8. Pretrained Weights
 
 Please place pretrained models into:
 
@@ -194,7 +194,6 @@ pretrained/
 Supported pretrained backbones:
 
 - CLIP ViT-B/16
-- DINOv2
 
 ---
 
