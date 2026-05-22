@@ -160,7 +160,7 @@ scikit_learn==1.0.1
 
 ---
 
-## 6. Dataset Preparation
+## 7. Dataset Preparation
 
 This repository does not host any datasets.
 Please download the standard public datasets and organize them according to the following structure.
@@ -171,13 +171,11 @@ Please download the standard public datasets and organize them according to the 
 
 ### Dataset Download
 - PASCAL VOC 2012: http://host.robots.ox.ac.uk/pascal/VOC/
-- SBD Augmentation: http://home.bharathh.info/pubs/codes/SBD/download.html
 - MS COCO 2014: https://cocodataset.org/
 
 ### Recommended Dataset Structure
 datasets/
 ├── VOC2012/
-├── SBD/
 └── COCO2014/
 
 After downloading, place the datasets in the above folders.
